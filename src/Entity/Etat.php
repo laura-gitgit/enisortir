@@ -18,7 +18,7 @@ class Etat
     #[ORM\Column(length: 30)]
     private ?string $libelle = null;
 
-    #[ORM\OneToMany(mappedBy: 'etat', targetEntity: sortie::class)]
+    #[ORM\OneToMany(mappedBy: 'etat', targetEntity: Sortie::class)]
     private Collection $sorties;
 
     public function __construct()

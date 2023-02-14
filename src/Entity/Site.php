@@ -18,10 +18,10 @@ class Site
     #[ORM\Column(length: 100)]
     private ?string $nom = null;
 
-    #[ORM\OneToMany(mappedBy: 'site', targetEntity: user::class)]
+    #[ORM\OneToMany(mappedBy: 'site', targetEntity: User::class)]
     private Collection $participants;
 
-    #[ORM\OneToMany(mappedBy: 'site', targetEntity: sortie::class)]
+    #[ORM\OneToMany(mappedBy: 'site', targetEntity: Sortie::class)]
     private Collection $sorties;
 
     public function __construct()

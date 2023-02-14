@@ -46,7 +46,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $actif = null;
 
-    #[ORM\ManyToMany(targetEntity: sortie::class, inversedBy: 'participants')]
+    #[ORM\ManyToMany(targetEntity: Sortie::class, inversedBy: 'participants')]
     private Collection $sorties;
 
     #[ORM\OneToMany(mappedBy: 'organisteur', targetEntity: Sortie::class)]
