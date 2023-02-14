@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div>
+        <p>Date du jour : {{ date | date('d/m/Y') }}</p>
+        <p>Participant : {{ app.user.prenom }}</p>
+    </div>
+
+    <form action="" method="post">
+    <div>
+        <p>Filter les sorties</p>
+        <p>Site :
+            <select name="site" id="site">
+                {% for site in sites %}
+                    <option value="{{ site.nom }}"></option>
+                {% endfor %}
+            </select>
+        </p>
+        <p>Le nom de la sortie contient :
+            <input type="text" class="nomSortie">
+        </p>
+        <p>
+            Entre
+            <input type="date" name="debutSortie" id="debutSortie">
+            et
+            <input type="date" name="finSortie" id="finSortie">
+        </p>
+    </div>
+    <div class="sorties_triees">
+        <input type="checkbox" name="organisateur" id="organisateur">
+        Sorties dont je suis l'organisateur/trice
+        <input type="checkbox" name="inscrit" id="inscrit">
+        Sorties auxquelles je suis inscrit/e
+        <input type="checkbox" name="non_inscrit" id="non_inscrit">
+        Sorties auxquelles je ne suis pas inscrit/e
+        <input type="checkbox" name="sorties_passees" id="sorties_passees">
+        Sorties passées
+    </div>
+        <input type="submit" value="Rechercher">
+    </form>
+{% endblock %}
+
