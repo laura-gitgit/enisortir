@@ -36,7 +36,9 @@
     #}
 
     <button class="btn btn-lg btn-primary" type="submit">
-        Se connecter
+        Connexion
     </button>
 </form>
+
+    <a href="{{ path('app_forgot_password_request', {'token': 'x'}) }}">Mot de passe oublié</a>
 {% endblock %}
