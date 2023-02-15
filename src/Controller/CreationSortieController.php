@@ -31,7 +31,7 @@ class CreationSortieController extends AbstractController
         $sortie = new Sortie();
         $sortie->setDateHeureDebut(new \DateTime());
         $user = $this->getUser();
-        $sortie->setOrganisteur($user);
+        $sortie->setOrganisateur($user);
         $sortie->setSite($user->getSite());
 
         $sortieForm = $this->createForm(SortieFormType::class, $sortie);
