@@ -2,8 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\Etat;
+use App\Entity\Lieu;
 use App\Entity\Sortie;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,12 +23,15 @@ class SortieFormType extends AbstractType
             ->add('dateLimiteInscription')
             ->add('nbInscriptionsMax')
             ->add('infosSortie')
-            ->add('participants')
-            ->add('organisteur')
-            ->add('site')
-            ->add('etat')
-            ->add('lieu')
-            ->add('Envoyer', SubmitType::class)
+
+            ->add('organisteur',EntityType::class,
+               ["class" => Lieu::class, "choice_label" => "id"])
+         //   ->add('site')
+            ->add('lieu', EntityType::class,
+                ["class" => Lieu::class, "choice_label" => "nom"])
+            ->add('Enregistrer', SubmitType::class)
+            ->add('Publier', SubmitType::class)
+            ->add('Annuler', SubmitType::class)
         ;
     }
 

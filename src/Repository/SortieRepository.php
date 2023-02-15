@@ -63,4 +63,15 @@ class SortieRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+   // public function supprimerSortie($id)
+  //  {
+    //    $query = $this->createQueryBuilder('s')
+    //        ->delete('Sortie')
+//            ->where('s.id= id')
+//            ->setParameter('id',$id)
+//            ->getQuery();
+//
+//
+//    }
+
 }
