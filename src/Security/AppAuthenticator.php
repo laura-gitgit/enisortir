@@ -48,7 +48,7 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
 
         // For example:
         //TODO: définir vers quel twig réorienter l'utilisateur après connexion
-         return new RedirectResponse($this->urlGenerator->generate('some_route'));
+         return new RedirectResponse($this->urlGenerator->generate('_main_sorties'));
 //        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 

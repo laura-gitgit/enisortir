@@ -39,6 +39,73 @@ class SortieRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function findAllBySite($nomSite)
+    {
+        return $this->createQueryBuilder('s')
+            ->leftJoin('s.site', 'site')
+            ->addSelect('site')
+            ->addOrderBy('s.dateHeureDebut')
+            ->where('site.nom = :nomSite')
+            ->setParameter('nomSite', $nomSite)
+            ->getQuery()
+            ->setMaxResults(10)
+            ->getResult();
+    }
+
+    public function findAllByNameAndSite($nomSite, $nomSortie)
+    {
+        return $this->createQueryBuilder('s')
+            ->leftJoin('s.site', 'site')
+            ->addSelect('site')
+            ->addOrderBy('s.dateHeureDebut')
+            ->where('s.nom LIKE :nomSortie')
+            ->andWhere('site.nom = :nomSite')
+            ->setParameter('nomSite', $nomSite)
+            ->setParameter('nomSortie', '%'.$nomSortie.'%')
+            ->getQuery()
+            ->setMaxResults(10)
+            ->getResult();
+    }
+
+    public function findAllBySiteNameAndDate($nomSite, $dateBefore, $dateAfter)
+    {
+        return $this->createQueryBuilder('s')
+            ->leftJoin('s.site', 'site')
+            ->addSelect('site')
+            ->addOrderBy('s.dateHeureDebut')
+            ->andWhere('site.nom = :nomSite')
+            ->andWhere('s.dateHeureDebut BETWEEN :dateBefore AND :dateAfter')
+            ->setParameter('nomSite', $nomSite)
+            ->setParameter('dateBefore', $dateBefore)
+            ->setParameter('dateAfter', $dateAfter)
+            ->getQuery()
+            ->setMaxResults(10)
+            ->getResult();
+    }
+    public function findAllByAllParameters($nomSite, $nomSortie, $dateBefore, $dateAfter)
+    {
+        return $this->createQueryBuilder('s')
+            ->leftJoin('s.site', 'site')
+            ->addSelect('site')
+            ->addOrderBy('s.dateHeureDebut')
+            ->where('s.nom LIKE :nomSortie')
+            ->andWhere('site.nom = :nomSite')
+            ->andWhere('s.dateHeureDebut BETWEEN :dateBefore AND :dateAfter')
+            ->setParameter('nomSortie', '%'.$nomSortie.'%')
+            ->setParameter('nomSite', $nomSite)
+            ->setParameter('dateBefore', $dateBefore)
+            ->setParameter('dateAfter', $dateAfter)
+            ->getQuery()
+            ->setMaxResults(10)
+            ->getResult();
+    }
+
+    public function findAllByIsOrganisateur (boolean $isOrga){
+
+    }
+
+
 //    /**
 //     * @return Sortie[] Returns an array of Sortie objects
 //     */
