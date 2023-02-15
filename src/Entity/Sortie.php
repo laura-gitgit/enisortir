@@ -39,7 +39,7 @@ class Sortie
 
     #[ORM\ManyToOne(inversedBy: 'sortiesOrganisees')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $organisteur = null;
+    private ?user $organisateur = null;
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]
     #[ORM\JoinColumn(nullable: false)]
@@ -162,14 +162,14 @@ class Sortie
         return $this;
     }
 
-    public function getOrganisteur(): ?user
+    public function getOrganisateur(): ?user
     {
-        return $this->organisteur;
+        return $this->organisateur;
     }
 
-    public function setOrganisteur(?user $organisteur): self
+    public function setOrganisateur(?user $organisateur): self
     {
-        $this->organisteur = $organisteur;
+        $this->organisateur = $organisateur;
 
         return $this;
     }
