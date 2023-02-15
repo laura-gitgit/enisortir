@@ -4,10 +4,13 @@ namespace App\Form;
 
 use App\Entity\Site;
 use App\Entity\User;
+use MongoDB\BSON\Regex;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -22,8 +25,15 @@ class RegistrationFormType extends AbstractType
             ->add('pseudo')
             ->add('nom')
             ->add('prenom')
-            ->add('telephone')
-            ->add('email')
+            ->add('telephone', TelType::class,
+                [
+                    'label' => 'Téléphone',
+                    'invalid_message' => 'Veuillez fournir un numéro de téléphone valide.'
+                ])
+            ->add('email', EmailType::class,
+            [
+                'label' => 'Email'
+            ])
             ->add('site', EntityType::class,
                 [
                     'class' => Site::class,
