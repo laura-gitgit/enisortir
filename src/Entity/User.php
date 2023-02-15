@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['email'], message: 'Il existe déjà un compte avec cet email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -20,7 +20,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Assert\Email (message: 'L\'email {{ value }} n\'est pas un email valide.')]
+    #[Assert\Email(message: 'L\'email {{ value }} n\'est pas un email valide.')]
+    #[Assert\NotBlank]
+    #[Assert\NotNull]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
@@ -33,12 +35,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    #[Assert\NotNull]
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
+    #[Assert\NotNull]
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
 
+    #[Assert\NotNull]
+    #[Assert\NotBlank]
+    #[Assert\Regex(pattern: '/^0[1-7]\d{8}$/', message: 'Merci de renseigner un numéro de téléphone valide du type 0123456789')]
     #[ORM\Column(length: 15)]
     private ?string $telephone = null;
 
@@ -58,6 +67,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Site $site = null;
 
+    #[Assert\NotNull]
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $pseudo = null;
 
