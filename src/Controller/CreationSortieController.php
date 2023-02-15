@@ -7,6 +7,7 @@ use App\Entity\Sortie;
 use App\Entity\User;
 use App\Form\ModifierSortieType;
 use App\Form\SortieFormType;
+use App\Repository\EtatRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -17,55 +18,43 @@ use Symfony\Component\Routing\Annotation\Route;
 class CreationSortieController extends AbstractController
 {
 
-    #[Route('/creation/{id}', name: 'sortie_creation')]
+    #[Route('/creation', name: 'sortie_creation')]
     public function create(
-      //  int $id,
-       // User $organisateur_id,
+        //  int $id,
+        // User $organisateur_id,
         EntityManagerInterface $em,
-        Request $request,
+        Request                $request, EtatRepository $etatRepository
 
     ): Response
     {
         //instance de sortie
         $sortie = new Sortie();
-        $sortie->setOrganisteur($this->getUser());
-      //  $organisateur_id = $request->query->get('id');
-
+        $sortie->setDateHeureDebut(new \DateTime());
+        $user = $this->getUser();
+        $sortie->setOrganisteur($user);
+        $sortie->setSite($user->getSite());
 
         $sortieForm = $this->createForm(SortieFormType::class, $sortie);
         // formulaire creation
         $sortieForm->handleRequest($request);
 
-
-        if ($request->query->get('enregister') != null) {
-            dump($request->request->get('enregister'));
-            if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
-
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid())
+        {
+            if (isset($request->get('sortie_form')['Enregistrer']))
+            {
+                $sortie->setEtat($etatRepository->findOneBy(['id' => 1]));
                 $em->persist($sortie);
                 $em->flush();
-                return $this->render('sortie/creation.html.twig',
-                    compact('sortieForm'),
+                return $this->redirectToRoute('_main_sorties');
 
-                );
-
-            }
-        } elseif (($request->query->get('publier','publier') != null)) {
-
-            if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+            } else if ( isset($request->get('sortie_form')['Publier'])){
+                $sortie->setEtat($etatRepository->findOneBy(['id' => 2]));
                 $em->persist($sortie);
                 $em->flush();
-                return $this->render('sortie/creation.html.twig',
-                    compact('sortieForm'),
-                    dump($request)
-                );
+                return $this->redirectToRoute('_main_sorties');
             }
-
-        } else{
-
-            return $this->render('sortie/creation.html.twig',
-                compact('sortieForm')
-            );
         }
+
         return $this->render('sortie/creation.html.twig',
             compact('sortieForm')
         );
