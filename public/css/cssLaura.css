@@ -1,0 +1,18 @@
+
+.container_logo img {
+    width: 300px;
+}
+
+.sorties {
+    display: inline-grid;
+    margin-right: 4px;
+    grid-template-columns: repeat(8,7rem);
+    border: solid black 1px;
+    text-align: center;
+}
+
+.sortiesAll h4{
+    display: inline-block;
+    margin-right: 25px;
+}
+
