@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h2>Mon profil</h2>
+    <div>
+        {{ form_start(profilForm) }}
+        {{ form_row(profilForm.pseudo) }}
+        {{ form_row(profilForm.prenom) }}
+        {{ form_row(profilForm.nom) }}
+        {{ form_row(profilForm.telephone) }}
+        {{ form_row(profilForm.email) }}
+        {{ form_row(profilForm.password) }}
+        {{ form_row(profilForm.site) }}
+        <button>Enregistrer</button>
+        {{ form_end(profilForm) }}
+        <a href="{{ path('_main_sorties') }}"><button>Annuler</button></a>
+    </div>
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

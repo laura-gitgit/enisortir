@@ -17,10 +17,18 @@
     <div class="header_home">
         {% if  app.user%}
             <a href="">Accueil</a>
-            <a href="">Mon profil</a>
+            <a href="{{ path('profil_modif') }}">Mon profil</a>
             <a href="{{ path('app_logout') }}" title="logout">Se deconnecter</a>
 {#            <p>Hello {{ app.user.prenom }}</p>#}
         {% endif %}
+
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
     </div>
         {% block body %}{% endblock %}
     </body>
