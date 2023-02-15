@@ -1,5 +1,16 @@
 {% extends 'base.html.twig' %}
 
+{% block body %}
+{#    {% form_theme sortieForm 'bootstrap_5_layout.html.twig' %}#}
+
+    <div>
 <h2>Ajouter une sortie</h2>
 
-    { form(sortieForm) }
+        {{ form_start(sortieForm) }}
+
+        {{ form_widget(sortieForm) }}
+{#        {{form_row(sortieForm.organisteur{app.request.get("id")}) }}#}
+        {{ form_end(sortieForm) }}
+
+    </div>
+{% endblock %}
