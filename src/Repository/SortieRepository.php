@@ -101,9 +101,9 @@ class SortieRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findAllByIsOrganisateur (boolean $isOrga){
-
-    }
+//    public function findAllByIsOrganisateur (boolean $isOrga){
+//
+//    }
 
 
 //    /**
