@@ -7,6 +7,7 @@ use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
@@ -57,6 +58,12 @@ class ModifProfilType extends AbstractType
                 'class' => Site::class,
                 'choice_label' => 'nom',
                 'label' => 'Ville de rattachement'
+            ])
+            ->add('imageFile', FileType::class, [
+                'label' => 'Image de profil',
+                'mapped' => false,
+                'required' => false,
+                'multiple' => false,
             ])
         ;
     }

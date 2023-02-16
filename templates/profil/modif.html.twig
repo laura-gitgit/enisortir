@@ -4,6 +4,7 @@
 
     <h2>Mon profil</h2>
     <div>
+
         {{ form_start(profilForm) }}
         {{ form_row(profilForm.pseudo) }}
         {{ form_row(profilForm.prenom) }}
@@ -11,6 +12,7 @@
         {{ form_row(profilForm.telephone) }}
         {{ form_row(profilForm.email) }}
         {{ form_row(profilForm.password) }}
+        {{ form_row(profilForm.imageFile) }}
         {{ form_row(profilForm.site) }}
         <button>Enregistrer</button>
         {{ form_end(profilForm) }}
