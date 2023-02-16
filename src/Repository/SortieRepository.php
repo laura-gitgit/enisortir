@@ -113,7 +113,7 @@ class SortieRepository extends ServiceEntityRepository
     }
 
     public function findAllByAllParameters2(
-        $nomSite, $nomSortie, $dateBefore, $dateAfter, $isOrganisateur, $userConnecte, $isInscrit, $isNotInscrit, $datePassee)
+        $nomSite, $nomSortie, $dateBefore, $dateAfter, $isOrganisateur, $userConnecte, $isInscrit, $isNotInscrit, $datePassee):array
     {
             $queryBuilder = $this->createQueryBuilder('s')
             ->leftJoin('s.site', 'site')
@@ -141,12 +141,13 @@ class SortieRepository extends ServiceEntityRepository
             }
 
              if($isInscrit){
-                 $queryBuilder->orWhere('s.participants LIKE :userConnecte')
-                     ->setParameter('userConnecte', $userConnecte->getNom());
+                 $queryBuilder->innerJoin('s.participants', 'p')
+                     ->andWhere('p.id = :userId')
+                     ->setParameter('userId', $userConnecte->getId());
              }
 
             if($isNotInscrit){
-                $queryBuilder->andWhere('s.participants NOT IN :userConnecte')
+                $queryBuilder->andWhere(':userConnecte NOT MEMBER OF s.participants')
                     ->setParameter('userConnecte', $userConnecte);
             }
 
