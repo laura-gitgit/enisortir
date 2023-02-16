@@ -22,7 +22,7 @@
     </header>
     <div class="header_home">
         {% if  app.user%}
-            <a href="">Accueil</a>
+            <a href="{{ path('_main_sorties') }}">Accueil</a>
             <a href="{{ path('profil_modif') }}">Mon profil</a>
             <a href="{{ path('app_logout') }}" title="logout">Se deconnecter</a>
 {#            <p>Hello {{ app.user.prenom }}</p>#}

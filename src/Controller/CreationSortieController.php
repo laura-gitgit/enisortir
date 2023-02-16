@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Form\ModifierSortieType;
 use App\Form\SortieFormType;
 use App\Repository\EtatRepository;
+use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -17,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CreationSortieController extends AbstractController
 {
-
+//TO DO integrer la ville dans le formulaire.
     #[Route('/creation', name: 'sortie_creation')]
     public function create(
         //  int $id,
@@ -35,6 +36,8 @@ class CreationSortieController extends AbstractController
         $sortie->setSite($user->getSite());
 
         $sortieForm = $this->createForm(SortieFormType::class, $sortie);
+       // $sortieForm->get('ville')->get('nom')->getData();                   //Recuperer les datas du nom de la ville.
+
         // formulaire creation
         $sortieForm->handleRequest($request);
 
@@ -59,6 +62,20 @@ class CreationSortieController extends AbstractController
             compact('sortieForm')
         );
     }
+
+
+#[Route('/detail/{id}', name: 'sortie_detail')]
+    public function afficherSortie(
+        int $id,
+    SortieRepository $sortieRepository
+):Response
+        {
+            $sortie =$sortieRepository->findOneBy(['id'=>$id]);
+            return $this->render('sortie/detail.html.twig',
+                compact('sortie')
+            );
+
+}
 
 
 //    // Annuler une sortie.
