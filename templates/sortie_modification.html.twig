@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+    {% block body %}
+
+
+<div>
+    <h2>Modifier une sortie</h2>
+
+    {{ form_start(modifierSortie) }}
+
+    {{ form_widget(modifierSortie) }}
+    {#        {{form_row(sortieForm.organisteur{app.request.get("id")}) }}#}
+    {{ form_end(modifierSortie) }}
+
+</div>
+
+
+{% endblock %}
+

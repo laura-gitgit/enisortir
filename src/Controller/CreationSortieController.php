@@ -9,6 +9,7 @@ use App\Form\ModifierSortieType;
 use App\Form\SortieFormType;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -75,6 +76,55 @@ class CreationSortieController extends AbstractController
                 compact('sortie')
             );
 
+}
+
+#[Route('/modification/{id}', name:'sortie_modification')]
+    public function modifierSortie(
+    int                     $id,
+    EtatRepository          $etatRepository,
+    SortieRepository        $sortieRepository,
+    Request                 $request,
+    EntityManagerInterface  $em,
+
+):Response
+        {
+
+            $sortie =$sortieRepository->findOneBy(['id'=>$id]);
+            $sortie->setNom($sortie->getNom());
+            $sortie->setDateHeureDebut($sortie->getDateHeureDebut());
+            $sortie->setDuree($sortie->getDuree());
+            $sortie->setDateLimiteInscription($sortie->getDateLimiteInscription());
+            $sortie->setNbInscriptionsMax($sortie->getNbInscriptionsMax());
+            $sortie->setInfosSortie($sortie->getInfosSortie());
+
+            $modifierSortie = $this->createForm(ModifierSortieType::class, $sortie);
+            $modifierSortie->handleRequest($request);
+             if ($modifierSortie->isSubmitted()&& $modifierSortie->isValid()) {
+                 if (isset($request->get('modication_form')['Enregistrer'])) {
+                     $sortie->setEtat($etatRepository->findOneBy(['id' => 1]));
+                     $em->persist($sortie);
+                     $em->flush();
+                     return $this->redirectToRoute('sortie_detail');
+
+                 } elseif (isset($request->get('modification_form')['Publier'])){
+                     $sortie->setEtat($etatRepository->findOneBy(['id' => 2]));
+                 $em->persist($sortie);
+                 $em->flush();
+                 return $this->redirectToRoute('sortie_detail');
+
+                 }elseif (isset($request->get('modification_form')['Supprimer'])){
+                     $em->remove($sortie);
+                     $em->flush();
+                     return $this->redirectToRoute('_main_sorties');
+                 }else{
+                     return $this->redirectToRoute('_main_sorties');
+                 }
+             }
+
+
+             return $this->render('sortie_modification.html.twig',
+                compact('modifierSortie')
+        );
 }
 
 
