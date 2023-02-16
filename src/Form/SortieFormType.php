@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
+use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -37,8 +38,13 @@ class SortieFormType extends AbstractType
 //            ->add('organisteur',EntityType::class,
 //               ["class" => Lieu::class, "choice_label" => "nom"])
          //   ->add('site')
+            //->add('ville',EntityType::class,["class"=> Ville::class,"choice_label"=>"nom"])
             ->add('lieu', EntityType::class,
                 ["class" => Lieu::class, "choice_label" => "nom"])
+
+//            ->add('ville', EntityType::class, [
+//                'class' => 'App\Entity\Ville',"choice_label"=>"nom"])
+
             ->add('Enregistrer', SubmitType::class, ['attr' => ['value' => 'Enregistrer']])
             ->add('Publier', SubmitType::class, ['attr' => ['value' => 'Publier']])
             ->add('Annuler', SubmitType::class, ['attr' => ['value' => 'Annuler']])
