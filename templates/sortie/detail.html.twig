@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+
+
+{% block body %}
+    <h2>{{ sortie.nom}}</h2>
+
+    <div>
+    <p>{{ sortie.dateHeureDebut | date('Y-m-d')}}</p>
+    <p>{{ sortie.dateLimiteInscription  | date('Y-m-d') }}</p>
+    <p>{{ sortie.nbInscriptionsMax}}</p>
+    <p>{{ sortie.duree }}</p>
+    <p>{{ sortie.infosSortie }}</p>
+    </div>
+    <div>
+{# TO DO verifier  apparition et la creation       <p>{{ ville.nom }}<\p>#}
+        <p>{{sortie.lieu.nom}}</p>
+        <p>{{sortie.lieu.rue}}</p>
+    </div>
+    <ul>
+        {% for user in sortie %}
+<li>{{sortie.participants}} </p></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
