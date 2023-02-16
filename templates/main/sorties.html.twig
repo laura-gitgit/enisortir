@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{#    <div>#}
-{#        {% if app.user %}#}
-{#        <p>Date du jour : {{ date | date('d/m/Y') }}</p>#}
-{#        <p>Participant : {{ app.user.prenom }}</p>#}
-{#        {% endif %}#}
-{#    </div>#}
+    <div>
+        {% if app.user %}
+        <p>Date du jour : {{ date | date('d/m/Y') }}</p>
+        <p>Participant : {{ app.user.prenom }}</p>
+        {% endif %}
+    </div>
 
-    <form action="{{ path('_main_tri') }}" method="get">
+    <form action="{{ path('_main_tri') }}" method="get" name="triSorties">
     <div>
         <p>Filter les sorties</p>
         <p>Site :
@@ -38,14 +38,13 @@
             Sorties auxquelles je suis inscrit/e
         </p>
         <p>
-            <input type="checkbox" name="non_inscrit" id="non_inscrit">
+            <input type="checkbox" name="nonInscrit" id="non_inscrit">
             Sorties auxquelles je ne suis pas inscrit/e
         </p>
         <p>
-            <input type="checkbox" name="sorties_passees" id="sorties_passees">
+            <input type="checkbox" name="sortiesPassees" id="sorties_passees">
             Sorties passées
         </p>
-
     </div>
         <input type="submit" value="Rechercher" name="validerRechercher">
     </form>
@@ -73,7 +72,7 @@
                         {%  endif %}
                     {% endfor %}
                 </div>
-                <div>{{ sortie.organisteur.nom }}</div>
+                <div>{{ sortie.organisateur.pseudo }}</div>
                 <div>Actions TODO</div>
             {% endfor %}
     </div>

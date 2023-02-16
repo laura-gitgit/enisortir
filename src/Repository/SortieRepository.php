@@ -80,7 +80,6 @@ class SortieRepository extends ServiceEntityRepository
             ->setParameter('dateBefore', $dateBefore)
             ->setParameter('dateAfter', $dateAfter)
             ->getQuery()
-            ->setMaxResults(10)
             ->getResult();
     }
     public function findAllByAllParameters($nomSite, $nomSortie, $dateBefore, $dateAfter)
@@ -97,14 +96,69 @@ class SortieRepository extends ServiceEntityRepository
             ->setParameter('dateBefore', $dateBefore)
             ->setParameter('dateAfter', $dateAfter)
             ->getQuery()
-            ->setMaxResults(10)
             ->getResult();
     }
 
-//    public function findAllByIsOrganisateur (boolean $isOrga){
-//
-//    }
+    public function findAllByIsOrganisateur ($nomSite, $userConnecte){
+        return $this->createQueryBuilder('s')
+            ->leftJoin('s.site', 'site')
+            ->addSelect('site')
+            ->addOrderBy('s.dateHeureDebut')
+            ->where('s.organisateur = :userConnecte')
+            ->andWhere('site.nom = :nomSite')
+            ->setParameter('nomSite', $nomSite)
+            ->setParameter('userConnecte', $userConnecte)
+            ->getQuery()
+            ->getResult();
+    }
 
+    public function findAllByAllParameters2(
+        $nomSite, $nomSortie, $dateBefore, $dateAfter, $isOrganisateur, $userConnecte, $isInscrit, $isNotInscrit, $datePassee)
+    {
+            $queryBuilder = $this->createQueryBuilder('s')
+            ->leftJoin('s.site', 'site')
+            ->addSelect('site')
+            ->addOrderBy('s.dateHeureDebut');
+
+            if($nomSite != null){
+                $queryBuilder->andWhere('site.nom = :nomSite')
+                    ->setParameter('nomSite', $nomSite);
+            }
+            if($nomSortie != null){
+                $queryBuilder->andWhere('s.nom LIKE :nomSortie')
+                    ->setParameter('nomSortie', '%'.$nomSortie.'%');
+            }
+
+            if($dateBefore != null && $dateAfter != null){
+                $queryBuilder->andWhere('s.dateHeureDebut BETWEEN :dateBefore AND :dateAfter')
+                    ->setParameter('dateBefore', $dateBefore)
+                    ->setParameter('dateAfter', $dateAfter);
+            }
+
+            if($isOrganisateur){
+                $queryBuilder->andWhere('s.organisateur = :userConnecte')
+                    ->setParameter('userConnecte', $userConnecte);
+            }
+
+             if($isInscrit){
+                 $queryBuilder->orWhere('s.participants LIKE :userConnecte')
+                     ->setParameter('userConnecte', $userConnecte->getNom());
+             }
+
+            if($isNotInscrit){
+                $queryBuilder->andWhere('s.participants NOT IN :userConnecte')
+                    ->setParameter('userConnecte', $userConnecte);
+            }
+
+            if($datePassee){
+                $queryBuilder->andWhere('s.dateHeureDebut <= :date' )
+                ->setParameter("date", new \DateTime());
+            }
+
+            return $queryBuilder
+                ->getQuery()
+                ->getResult();
+    }
 
 //    /**
 //     * @return Sortie[] Returns an array of Sortie objects

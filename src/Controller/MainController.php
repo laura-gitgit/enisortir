@@ -15,54 +15,100 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/', name: '_main')]
 class MainController extends AbstractController
 {
-
-//    #[Route('/', name: 'main_home')]
-//    public function home(): Response
-//    {
-//        return $this->render('security/login.html.twig');
-//    }
+    #[Route('/', name: 'main_home')]
+    public function home(): Response
+    {
+        return $this->render('security/login.html.twig');
+    }
 
     #[Route('/sorties', name: '_sorties')]
     public function sorties(SortieRepository $sortieRepository, SiteRepository $siteRepository) : Response
     {
-        $sorties = $sortieRepository->findAll();
         $userConnecte = $this->getUser();
+        $sorties = $sortieRepository->findAll();
+
         $date = new \DateTime();
         $sites = $siteRepository->findAll();
 
         return $this->render('main/sorties.html.twig',
-            compact('sorties',  'sites'));
+            compact('sorties',  'sites', 'date'));
     }
 
     #[Route('/tri', name: '_tri')]
     public function sortiesTriees (Request $request, SortieRepository $sortieRepository, SiteRepository $siteRepository): Response
     {
+        $userConnecte = $this->getUser();
         $sites = $siteRepository->findAll();
-
-        $site = $request->query->get('site');
+        $date = new \DateTime();
+        $nomSite = $request->query->get('site');
         $nomSortie = $request->query->get('nomSortie');
         $debutSortie = $request->query->get('debutSortie');
         $finSortie = $request->query->get('finSortie');
-        $isOrganisateur = $request->query->get('organisateur');
+        $organisateur = $request->query->get('organisateur');
+        $inscrit = $request->query->get('inscrit');
+        $nonInscrit = $request->query->get('nonInscrit');
+        $sortiePassee = $request->query->get('sortiesPassees');
+        $rechercher = $request->query->get('validerRechercher');
+        $isOrganisateur = false;
+        $isInscrit = false;
+        $isNotInscrit = false;
+        $sortieTerminee = false;
 
-        if($site) {
-            $sorties = $sortieRepository->findAllBySite($site);
+        if ($organisateur == "on"){
+            $isOrganisateur = true;
         }
-        if ($site && $nomSortie){
-            $sorties = $sortieRepository->findAllByNameAndSite($site, $nomSortie);
+        if ($inscrit == "on"){
+            $isInscrit = true;
         }
-        if($site && $debutSortie && $finSortie){
-            $sorties = $sortieRepository->findAllBySiteNameAndDate($site, $debutSortie, $finSortie);
+        if ($nonInscrit == "on"){
+            $isNotInscrit = true;
         }
-        if($site && $nomSortie && $debutSortie && $finSortie){
-            $sorties = $sortieRepository->findAllByAllParameters($site, $nomSortie, $debutSortie, $finSortie);
+        if ($sortiePassee == "on"){
+            $sortieTerminee = true;
         }
 
-        if($site && $isOrganisateur){
+        $sorties = $sortieRepository->findAllByAllParameters2($nomSite, $nomSortie, $debutSortie, $finSortie, $isOrganisateur, $userConnecte, $isInscrit, $isNotInscrit, $sortieTerminee);
 
-        }
+//      dd($sorties);
+
+
+//        if($site) {
+//            $sorties = $sortieRepository->findAllBySite($site);
+////            $sorties = $sortieRepository->findAllByAllParameters2($site, $nomSortie, $debutSortie, $finSortie, $isOrganisateur, $userConnecte, $isInscrit, $isNotInscrit, $sortieTerminee);
+//        }
+//        if ($site && $nomSortie){
+////            $sorties = $sortieRepository->findAllByNameAndSite($site, $nomSortie);
+//            $sorties = $sortieRepository->findAllByAllParameters2($site, $nomSortie, $debutSortie, $finSortie, $isOrganisateur, $userConnecte, $isInscrit, $isNotInscrit, $sortieTerminee);
+//
+//        }
+//        if($site && $debutSortie && $finSortie){
+////            $sorties = $sortieRepository->findAllBySiteNameAndDate($site, $debutSortie, $finSortie);
+//            $sorties = $sortieRepository->findAllByAllParameters2($site, $nomSortie, $debutSortie, $finSortie, $isOrganisateur, $userConnecte, $isInscrit, $isNotInscrit, $sortieTerminee);
+//
+//        }
+//        if($site && $nomSortie && $debutSortie && $finSortie){
+////            $sorties = $sortieRepository->findAllByAllParameters($site, $nomSortie, $debutSortie, $finSortie);
+//            $sorties = $sortieRepository->findAllByAllParameters2($site, $nomSortie, $debutSortie, $finSortie, $isOrganisateur, $userConnecte, $isInscrit, $isNotInscrit, $sortieTerminee);
+//        }
+//
+//        if($site && $isOrganisateur){
+////            $sorties = $sortieRepository->findAllByIsOrganisateur($site, $userConnecte);
+//            $sorties = $sortieRepository->findAllByAllParameters2($site, $nomSortie, $debutSortie, $finSortie, $isOrganisateur, $userConnecte, $isInscrit, $isNotInscrit, $sortieTerminee);
+//        }
+//
+//        if($site  && $nomSortie && $isOrganisateur){
+//            $sorties = $sortieRepository->findAllByAllParameters2($site, $nomSortie, $debutSortie, $finSortie, $isOrganisateur, $userConnecte, $isInscrit, $isNotInscrit, $sortieTerminee);
+//        }
+//
+//        if($site && $nomSortie&& $debutSortie && $finSortie && $isOrganisateur){
+//            $sorties = $sortieRepository->findAllByAllParameters2($site, $nomSortie, $debutSortie, $finSortie, $isOrganisateur, $userConnecte, $isInscrit, $isNotInscrit, $sortieTerminee);
+//
+//        }
+//
+//
+
 
         return $this->render('main/sorties.html.twig',
-            compact('sorties', 'sites'));
+            compact('sorties', 'sites', 'date'));
     }
 }
