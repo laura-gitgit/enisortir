@@ -2,54 +2,67 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div>
+<div class="infos_user">
     {% if app.user %}
         <p>Date du jour : {{ date | date('d/m/Y') }}</p>
         <p>Participant : {{ app.user.prenom }}</p>
     {% endif %}
 </div>
 
-<form action="{{ path('_main_tri') }}" method="get" name="triSorties">
-    <div>
-        <p>Filter les sorties</p>
-        <p>Site :
-            <select name="site" id="site">
-                {% for site in sites %}
-                    <option value="{{ site.nom }}">{{ site.nom }}</option>
-                {% endfor %}
-            </select>
-        </p>
-        <p>Le nom de la sortie contient :
-            <input type="text" class="nomSortie" name="nomSortie">
-        </p>
-        <p>
-            Entre
-            <input type="date" name="debutSortie" id="debutSortie">
-            et
-            <input type="date" name="finSortie" id="finSortie">
-        </p>
+        <div class="formulaire_recherche">
+            <form action="{{ path('_tri') }}" method="get" name="triSorties" class="form_sortie">
+                <div class="filtre">
+                 <p>Filter les sorties</p>
+                 <p>Site :
+                   <select name="site" id="site">
+                        {% for site in sites %}
+                             <option value="{{ site.nom }}">{{ site.nom }}</option>
+                        {% endfor %}
+                   </select>
+                 </p>
+                <p>Le nom de la sortie contient :
+                    <input type="text" class="nomSortie" name="nomSortie">
+                </p>
+                <p>
+                    Entre
+                    <input type="date" name="debutSortie" id="debutSortie">
+                    et
+                    <input type="date" name="finSortie" id="finSortie">
+                </p>
+        </div>
+        <div class="sorties_triees">
+            <p>
+                <input type="checkbox" name="organisateur" id="organisateur">
+                Sorties dont je suis l'organisateur/trice
+            </p>
+            <p>
+                <input type="checkbox" name="inscrit" id="inscrit">
+                Sorties auxquelles je suis inscrit/e
+            </p>
+            <p>
+                <input type="checkbox" name="nonInscrit" id="non_inscrit">
+                Sorties auxquelles je ne suis pas inscrit/e
+            </p>
+            <p>
+                <input type="checkbox" name="sortiesPassees" id="sorties_passees">
+                Sorties passées
+            </p>
+        </div>
+        <input type="submit" value="Rechercher" name="validerRechercher" id="input_rechercher" style="--color:#1e9bff;">
+    </form>
+        </div>
+
+<div class="boxer">
+    <div class="box-row-titre"><!--Headings-->
+        <div class="box">Nom de la sortie </div>
+        <div class="box">Date de la sortie</div>
+        <div class="box">Clôture</div>
+        <div class="box">Inscrits/places </div>
+        <div class="box">Etat</div>
+        <div class="box">Inscrit</div>
+        <div class="box">Organisateur</div>
+        <div class="box">Actions</div>
     </div>
-    <div class="sorties_triees">
-        <p>
-            <input type="checkbox" name="organisateur" id="organisateur">
-            Sorties dont je suis l'organisateur/trice
-        </p>
-        <p>
-            <input type="checkbox" name="inscrit" id="inscrit">
-            Sorties auxquelles je suis inscrit/e
-        </p>
-        <p>
-            <input type="checkbox" name="nonInscrit" id="non_inscrit">
-            Sorties auxquelles je ne suis pas inscrit/e
-        </p>
-        <p>
-            <input type="checkbox" name="sortiesPassees" id="sorties_passees">
-            Sorties passées
-        </p>
-    </div>
-    <input type="submit" value="Rechercher" name="validerRechercher">
-</form>
-</div>
     <!-- Start of 'box-row' -->
 
         {% for sortie in sorties %}
@@ -103,14 +116,7 @@
                 </div>
         </div>
         {% endfor %}
-
-
 </div>
-    <!-- End of 'box-row' -->
-    <a href="{{ path('sortie_creation') }}">
-        <button name="CréerSortie">Créer une sortie</button>
-    </a>
-
     {% endblock %}
 
 
