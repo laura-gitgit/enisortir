@@ -44,20 +44,34 @@ class CreationSortieController extends AbstractController
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid())
         {
+
             if (isset($request->get('sortie_form')['Enregistrer']))
             {
+                try{
                 $sortie->setEtat($etatRepository->findOneBy(['id' => 1]));
                 $em->persist($sortie);
                 $em->flush();
+
+               }catch (\Exception $exception){
+                    dd($exception->getMessage());
+                }
+
                 return $this->redirectToRoute('_main_sorties');
 
             } else if ( isset($request->get('sortie_form')['Publier'])){
+              try{
                 $sortie->setEtat($etatRepository->findOneBy(['id' => 2]));
                 $em->persist($sortie);
                 $em->flush();
+
+               } catch (\Exception $exception){
+                  dd($exception->getMessage());
+              }
+
                 return $this->redirectToRoute('_main_sorties');
             }
         }
+
 
         return $this->render('sortie/creation.html.twig',
             compact('sortieForm')
@@ -89,32 +103,56 @@ class CreationSortieController extends AbstractController
 ):Response
         {
 
-            $sortie =$sortieRepository->findOneBy(['id'=>$id]);
-            $sortie->setNom($sortie->getNom());
-            $sortie->setDateHeureDebut($sortie->getDateHeureDebut());
-            $sortie->setDuree($sortie->getDuree());
-            $sortie->setDateLimiteInscription($sortie->getDateLimiteInscription());
-            $sortie->setNbInscriptionsMax($sortie->getNbInscriptionsMax());
-            $sortie->setInfosSortie($sortie->getInfosSortie());
+            $sortieBase =$sortieRepository->findOneBy(['id'=>$id]);
+            $sortie=$sortieBase;
 
             $modifierSortie = $this->createForm(ModifierSortieType::class, $sortie);
             $modifierSortie->handleRequest($request);
+
              if ($modifierSortie->isSubmitted()&& $modifierSortie->isValid()) {
-                 if (isset($request->get('modication_form')['Enregistrer'])) {
-                     $sortie->setEtat($etatRepository->findOneBy(['id' => 1]));
-                     $em->persist($sortie);
-                     $em->flush();
-                     return $this->redirectToRoute('sortie_detail');
 
-                 } elseif (isset($request->get('modification_form')['Publier'])){
+                 $sortieBase->setSite($sortie->getSite());
+                 $sortieBase->setNom($sortie->getNom());
+                 $sortieBase->setDateHeureDebut($sortie->getDateHeureDebut());
+                 $sortieBase->setDuree($sortie->getDuree());
+                 $sortieBase->setDateLimiteInscription($sortie->getDateLimiteInscription());
+                 $sortieBase->setNbInscriptionsMax($sortie->getNbInscriptionsMax());
+                 $sortieBase->setInfosSortie($sortie->getInfosSortie());
+                 $sortieBase->setOrganisateur($sortie->getOrganisateur());
+
+                 if (isset($request->get('modifier_sortie')['Enregistrer']))
+                 {
+                    try{
+                     $sortieBase->setEtat($etatRepository->findOneBy(['id' => 1]));
+
+                     $em->persist($sortieBase);
+                     $em->flush();
+                     }catch (\Exception $exception){
+                        dd($exception->getMessage());
+                    }
+                     return $this->redirectToRoute('_main_sorties');
+
+                 } elseif (isset($request->get('modifier_sortie')['Publier']))
+                 {
+                     try{
                      $sortie->setEtat($etatRepository->findOneBy(['id' => 2]));
-                 $em->persist($sortie);
-                 $em->flush();
-                 return $this->redirectToRoute('sortie_detail');
-
-                 }elseif (isset($request->get('modification_form')['Supprimer'])){
-                     $em->remove($sortie);
+                     $em->persist($sortieBase);
                      $em->flush();
+                    }
+                    catch (\Exception $exception){
+                         dd($exception->getMessage());
+                    }
+                 return $this->redirectToRoute('_main_sorties');
+
+                 }elseif (isset($request->get('modifier_sortie')['Supprimer']))
+                 {
+                     try {
+                     $em->remove($sortieBase);
+                     $em->flush();
+                     }
+                     catch(\Exception $exception){
+                         dd($exception->getMessage());
+                     }
                      return $this->redirectToRoute('_main_sorties');
                  }else{
                      return $this->redirectToRoute('_main_sorties');
