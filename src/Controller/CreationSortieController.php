@@ -51,24 +51,23 @@ class CreationSortieController extends AbstractController
                 $sortie->setEtat($etatRepository->findOneBy(['id' => 1]));
                 $em->persist($sortie);
                 $em->flush();
-
-               }catch (\Exception $exception){
+                }catch(\Exception $exception){
                     dd($exception->getMessage());
                 }
 
                 return $this->redirectToRoute('_main_sorties');
 
             } else if ( isset($request->get('sortie_form')['Publier'])){
-              try{
+
+                try{
                 $sortie->setEtat($etatRepository->findOneBy(['id' => 2]));
                 $em->persist($sortie);
                 $em->flush();
+                }catch(\Exception $exception){
+                    dd($exception->getMessage());
+                }
 
-               } catch (\Exception $exception){
-                  dd($exception->getMessage());
-              }
-
-                return $this->redirectToRoute('_main_sorties');
+            return $this->redirectToRoute('_main_sorties');
             }
         }
 
@@ -128,7 +127,7 @@ class CreationSortieController extends AbstractController
                      $em->persist($sortieBase);
                      $em->flush();
                      }catch (\Exception $exception){
-                        dd($exception->getMessage());
+                        dd($exception->getMessage($exception->getMessage()));
                     }
                      return $this->redirectToRoute('_main_sorties');
 
@@ -138,21 +137,19 @@ class CreationSortieController extends AbstractController
                      $sortie->setEtat($etatRepository->findOneBy(['id' => 2]));
                      $em->persist($sortieBase);
                      $em->flush();
-                    }
-                    catch (\Exception $exception){
+                     }catch(\Exception $exception){
                          dd($exception->getMessage());
-                    }
+                     }
                  return $this->redirectToRoute('_main_sorties');
 
                  }elseif (isset($request->get('modifier_sortie')['Supprimer']))
                  {
-                     try {
+                      try{
                      $em->remove($sortieBase);
                      $em->flush();
-                     }
-                     catch(\Exception $exception){
-                         dd($exception->getMessage());
-                     }
+                      }catch (\Exception $exception){
+                          dd($exception->getMessage());
+                      }
                      return $this->redirectToRoute('_main_sorties');
                  }else{
                      return $this->redirectToRoute('_main_sorties');
