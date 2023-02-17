@@ -37,7 +37,7 @@
                 <span class="m">E</span>
             </h3>
             <div class="nav-container">
-                <a class="nav-tab" href="{{ path('_main_sorties') }}">Accueil</a>
+                <a class="nav-tab" href="{{ path('_sorties') }}">Accueil</a>
                 <a class="nav-tab" href="{{ path('profil_modif') }}">Mon profil</a>
                 <a class="nav-tab" href="{{ path('app_logout') }}" title="logout" >Se déconnecter</a>
                 <a class="nav-tab" href="{{ path('sortie_creation') }}">Créer une sortie</a>
@@ -46,6 +46,7 @@
         </section>
 
     </header>
+    <main>
     <div class="header_home">
         {% if  app.user%}
 
@@ -64,7 +65,14 @@
             {% endfor %}
         {% endfor %}
     </div>
+
         {% block body %}{% endblock %}
+    </main>
+    <footer class="footer">
+        <div class="container-footer">
+            <p>&copy; Eni Sortie {{ "now" | date('Y') }} Laura, Jon et Xavier</p>
+        </div>
+    </footer>
     </body>
 </html>
 
