@@ -3,8 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
@@ -76,23 +78,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $pseudo = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @var string
-     */
-    private $image;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image;
 
-    /**
-     * @var File
-     * @Vich\UploadableField(mapping="avatar", fileNameProperty="image")
-     */
+
+    #[Vich\UploadableField(mapping: "avatar", fileNameProperty: "image")]
     private $imageFile;
 
-    /**
-     * @ORM\Column(type="datetime")
-     * @var \DateTime
-     */
-    private $updatedAt;
+    #[ORM\Column(nullable: true)]
+    private ?DateTime $updatedAt;
 
     public function __construct()
     {
@@ -320,7 +314,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function setImageFile(File $image = null)
+    public function setImageFile(?File $image = null): void
     {
         $this->imageFile = $image;
 
@@ -329,8 +323,57 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
     }
 
-    public function getImageFile()
+    public function getImageFile(): ?File
     {
         return $this->imageFile;
+    }
+
+    public function setUpdatedAt(?\DateTime $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+
+    public function __serialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'email' => $this->email,
+            'roles' => $this->roles,
+            'nom' => $this->nom,
+            'prenom' => $this->prenom,
+            'telephone' => $this->telephone,
+            'administrateur' => $this->administrateur,
+            'actif' => $this->actif,
+            'site' => $this->site,
+            'sorties' => $this->sorties,
+            'sortieOrganisees' => $this->sortiesOrganisees,
+            'pseudo' => $this->pseudo,
+            'image' => $this->image,
+            'updatedAt' => $this->updatedAt,
+            'imageFile' => base64_encode($this->imageFile),
+            'password' => $this->password,
+        ];
+    }
+
+    public function __unserialize(array $serialized)
+    {
+        $this->id = $serialized['id'];
+        $this->email = $serialized['email'];
+        $this->roles = $serialized['roles'];
+        $this->nom = $serialized['nom'];
+        $this->telephone = $serialized['telephone'];
+        $this->administrateur = $serialized['administrateur'];
+        $this->site = $serialized['site'];
+        $this->sorties = $serialized['sorties'];
+//        $this->sortiesOrganisees = $serialized['sortiesOrganisees'];
+        $this->image = $serialized['image'];
+        $this->updatedAt = $serialized['updatedAt'];
+        $this->imageFile = base64_decode($serialized['imageFile']);
+        $this->password = $serialized['password'];
+
+        return $this;
     }
 }

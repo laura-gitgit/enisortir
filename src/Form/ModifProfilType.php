@@ -7,16 +7,16 @@ use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use function Sodium\add;
+use Vich\UploaderBundle\Form\Type\VichFileType;
+
 
 class ModifProfilType extends AbstractType
 {
@@ -59,11 +59,22 @@ class ModifProfilType extends AbstractType
                 'choice_label' => 'nom',
                 'label' => 'Ville de rattachement'
             ])
-            ->add('imageFile', FileType::class, [
+            ->add('imageFile', VichFileType::class, [
                 'label' => 'Image de profil',
-                'mapped' => false,
+                'allow_delete' => false,
+                'download_label' => false,
                 'required' => false,
-                'multiple' => false,
+                'constraints' => [
+                    new File([
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/jpg',
+                        ],
+                        'mimeTypesMessage' => 'Seulement les formats JPG, JPEG ou PNG sont autorisés',
+                    ])
+                ]
+
             ])
         ;
     }

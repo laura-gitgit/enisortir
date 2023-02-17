@@ -47,15 +47,6 @@
 
     </header>
     <div class="header_home">
-        {% if  app.user%}
-
-{#            <span class="nav-tab-slider"></span>#}
-{#            <a href="">Accueil</a>#}
-{#            <a href="">Mon profil</a>#}
-{#            <a href=">Se deconnecter</a>#}
-{#            <p>Hello {{ app.user.prenom }}</p>#}
-        {% endif %}
-
         {% for label, messages in app.flashes %}
             {% for message in messages %}
                 <div class="alert-{{ label }}">
