@@ -83,29 +83,29 @@
                 <div class="box actions">
                     {%  if sortie.organisateur != app.user and sortie.participants | length < sortie.nbInscriptionsMax %}
                             <span class="left">
-                                 <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Afficher -&nbsp </a>
+                                 <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Afficher &nbsp </a>
                             </span>
                         {#  TODO inscription à une sortie #}
                         {% if app.user not in sortie.participants %}
                             <span class="right">
-                                <a href=""> S'inscrire</a>
+                                <a href="">-&nbsp S'inscrire</a>
                             </span>
                         {% endif %}
                         {% if  app.user in sortie.participants %}
                              <span class="right">
-                                <a href=""> Se désister</a>
+                                <a href="">-&nbsp Se désister</a>
                             </span>
                         {% endif %}
                     {% elseif sortie.organisateur == app.user %}
-                        <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Modifier -&nbsp </a>
+                        <a href="{{ path('sortie_modification', {'id': sortie.id}) }}">Modifier &nbsp</a>
                         {% if sortie.etat.libelle == 'Créée' %}
                             <span class="right">
-                                <a href=""> Publier</a>
+                                <a href="{{ path('sortie_modification', {'id': sortie.id}) }}">-&nbsp Publier</a>
                             </span>
                         {%  endif %}
                         {% if sortie.etat.libelle == 'Ouverte' %}
                             <span class="right">
-                                <a href=""> Annuler</a>
+                                <a href="{{ path('sortie_modification', {'id': sortie.id}) }}">-&nbsp Annuler</a>
                             </span>
                         {%  endif %}
                     {%  endif %}
