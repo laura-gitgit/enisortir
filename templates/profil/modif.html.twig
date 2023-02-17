@@ -5,6 +5,8 @@
     <h2>Mon profil</h2>
     <div>
 
+        <img src="{{ asset('images/avatar/'~profil.image) }}" alt="" height="150" width="150">
+
         {{ form_start(profilForm) }}
         {{ form_row(profilForm.pseudo) }}
         {{ form_row(profilForm.prenom) }}
@@ -16,7 +18,7 @@
         {{ form_row(profilForm.site) }}
         <button>Enregistrer</button>
         {{ form_end(profilForm) }}
-        <a href="{{ path('_main_sorties') }}"><button>Annuler</button></a>
+        <a href="{{ path('_sorties') }}"><button>Annuler</button></a>
     </div>
 
 {% endblock %}

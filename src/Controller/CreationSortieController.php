@@ -49,13 +49,13 @@ class CreationSortieController extends AbstractController
                 $sortie->setEtat($etatRepository->findOneBy(['id' => 1]));
                 $em->persist($sortie);
                 $em->flush();
-                return $this->redirectToRoute('_main_sorties');
+                return $this->redirectToRoute('_sorties');
 
             } else if ( isset($request->get('sortie_form')['Publier'])){
                 $sortie->setEtat($etatRepository->findOneBy(['id' => 2]));
                 $em->persist($sortie);
                 $em->flush();
-                return $this->redirectToRoute('_main_sorties');
+                return $this->redirectToRoute('_sorties');
             }
         }
 
@@ -115,9 +115,9 @@ class CreationSortieController extends AbstractController
                  }elseif (isset($request->get('modification_form')['Supprimer'])){
                      $em->remove($sortie);
                      $em->flush();
-                     return $this->redirectToRoute('_main_sorties');
+                     return $this->redirectToRoute('_sorties');
                  }else{
-                     return $this->redirectToRoute('_main_sorties');
+                     return $this->redirectToRoute('_sorties');
                  }
              }
 

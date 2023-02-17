@@ -70,11 +70,11 @@ class ProfilController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Profil modifié');
-            return $this->redirectToRoute('_main_sorties');
+            return $this->redirectToRoute('_sorties');
         }
         return $this->render(
             'profil/modif.html.twig',
-            compact('profilForm')
+            compact('profilForm', 'profil')
         );
     }
 }
