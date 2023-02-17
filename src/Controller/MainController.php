@@ -12,14 +12,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/', name: '_main')]
+//#[Route('/', name: 'main')]
 class MainController extends AbstractController
 {
-    #[Route('/', name: 'main_home')]
-    public function home(): Response
-    {
-        return $this->render('security/login.html.twig');
-    }
+//    #[Route('/de', name: '_home')]
+//    public function home(): Response
+//    {
+//        return $this->render('security/login.html.twig');
+//    }
 
     #[Route('/sorties', name: '_sorties')]
     public function sorties(SortieRepository $sortieRepository, SiteRepository $siteRepository) : Response

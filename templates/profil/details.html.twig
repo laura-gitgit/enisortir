@@ -6,8 +6,8 @@
     <h2>{{ profil.pseudo }}</h2>
     </div>
 
-    <div>
-        <p>{{ profil.imageFile }}</p>
+    <img>
+        <img src="{{ asset('images/avatar/'~profil.image) }}" alt="" height="150" width="150">
         <p>Prénom : {{ profil.prenom }}</p>
         <p>Nom : {{ profil.nom }}</p>
         <p>Téléphone : {{ profil.telephone }}</p>
@@ -15,7 +15,7 @@
         <p>Ville de rattachement : {{ profil.site.nom }}</p>
     </div>
 
-    <div><a href="{{ path('_main_sorties') }}"><button>Retour</button></a> </div>
+    <div><a href="{{ path('_sorties') }}"><button>Retour</button></a> </div>
 
 
 {% endblock %}
