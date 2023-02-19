@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Etat;
 use App\Entity\Sortie;
 use App\Entity\User;
+use App\Form\AnnulationType;
 use App\Form\ModifierSortieType;
 use App\Form\SortieFormType;
 use App\Repository\EtatRepository;
@@ -19,11 +20,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CreationSortieController extends AbstractController
 {
-//TO DO integrer la ville dans le formulaire.
+
     #[Route('/creation', name: 'sortie_creation')]
     public function create(
-        //  int $id,
-        // User $organisateur_id,
         EntityManagerInterface $em,
         Request                $request, EtatRepository $etatRepository
 
@@ -37,9 +36,9 @@ class CreationSortieController extends AbstractController
         $sortie->setSite($user->getSite());
 
         $sortieForm = $this->createForm(SortieFormType::class, $sortie);
-       // $sortieForm->get('ville')->get('nom')->getData();                   //Recuperer les datas du nom de la ville.
 
-        // formulaire creation
+
+
         $sortieForm->handleRequest($request);
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid())
@@ -168,47 +167,47 @@ class CreationSortieController extends AbstractController
         );
 }
 
+#[Route('/annulation/{id}', name:'sortie_annulation')]
+    public function annulationSortie(
+        int                     $id,
+        SortieRepository        $sortieRepository,
+        EntityManager           $em,
+        Request                 $request,
+        Sortie                  $sortie,
+        EtatRepository          $etatRepository
+        ):Response
+        {
 
-//    // Annuler une sortie.
-//        #[Route('/annuler/{id}', name: 'sortie_annuler')]
-//    public function annulerSortie(
-//        int $id,
-//        Sortie $sortie,
-//        EntityManagerInterface $em
-//    ):RedirectResponse
-//    {
-//
-//        $sortie->setEtat('Annulee');
-//        $em->persist($sortie);
-//        $em->flush();
-//        return $this->redirectToRoute('_main_sorties');
-//    // TO DO verifier routes et appeles de fonction, voir avec Laura.
-//    // Gerer les etats en bases
-//
-//    }
-
-    //modification de la sortie
-//    #[Route('/modifier/{id}', name: 'sortie_modifier')]
-//    public function modifierSortie(
-//        Sortie $sortie,
-//        EntityManagerInterface $em,
-//        Request $request
-//        ):RedirectResponse
-//    {
-//
-//        $modifForm = $this-> createForm(ModifierSortieType::class, $sortie);
-//        $modifForm->handleRequest($request);
-//
-//        if($modifForm->isSubmitted() && $modifForm->isValid())
-//        {
-//            $em->persist($sortie);
-//            $em->flush();
-//            return $this->redirectToRoute('_main_sorties');
-//        }
-//    }
+        $sortieBase =$sortieRepository->findOneBy(['id'=>$id]);
+        $sortie=$sortieBase;
+        $annulationSortie = $this->createForm(AnnulationType::class, );
+        $annulationSortie->handleRequest($request);
 
 
+        if($annulationSortie->isSubmitted() && $annulationSortie->isValid())
+        {
+            $sortieBase->setInfosSortie($sortie->getInfosSortie());
 
+            if (isset($request->get('modifier_sortie')['Enregistrer']))
+            {
+                try{
+                    $sortie->setEtat($etatRepository->findOneBy(['id' => 5])); // TO DO verifier id etat
 
+                    $em->persist($sortieBase);
+                    $em->flush();
+                }catch (\Exception $exception){
+                    dd($exception->getMessage());
+                }
+                return $this->redirectToRoute('_sorties');
 
+            }else{
+                return $this->redirectToRoute('_sorties');
+            }
+        }
+
+        return $this->render('sortie_annulation.html.twig',
+        compact('annulationSortie')
+        );
+
+    }
 }
