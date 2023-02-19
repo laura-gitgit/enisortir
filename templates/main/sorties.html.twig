@@ -90,12 +90,12 @@
                         {#  TODO inscription à une sortie #}
                         {% if app.user not in sortie.participants %}
                             <span class="right">
-                                <a href="">-&nbspS'inscrire</a>
+                                <a href="{{ path('_desinscriptionSortie', {'id': sortie.id}) }}">-&nbspS'inscrire</a>
                             </span>
                         {% endif %}
                         {% if  app.user in sortie.participants %}
                              <span class="right">
-                                <a href="">-&nbspSe désister</a>
+                                <a href="{{ path('_inscriptionSortie', {'id': sortie.id}) }}">-&nbspSe désister</a>
                             </span>
                         {% endif %}
                     {% elseif sortie.organisateur == app.user %}
