@@ -62,9 +62,10 @@
         <div class="box">Organisateur</div>
         <div class="box">Actions</div>
     </div>
-    <!-- Start of 'box-row' -->
 
         {% for sortie in sorties %}
+            {% set dateArchive = sortie.dateHeureDebut | date_modify('+1 month') %}
+            {% if sortie.dateHeureDebut < dateArchive %}
         <div class="box-row">
                 <div class="box">{{ sortie.nom }}</div>
                 <div class="box">{{ sortie.dateHeureDebut | date('d/m/Y') }}</div>
@@ -106,12 +107,12 @@
                                      <a href="{{ path('sortie_detail', {'id': sortie.id}) }}" class="boutonSortie">Afficher&nbsp</a>
                                 </span>
                         {% endif %}
-                        {% if sortie.etat.libelle == 'Créée' %}
+                        {% if sortie.etat.libelle == 'Créée' and sortie.dateHeureDebut|date('U') >= 'now'|date('U')%}
                             <span class="right">
                                 <a href="{{ path('sortie_modification', {'id': sortie.id}) }}" class="boutonSortie">-&nbspPublier</a>
                             </span>
                         {%  endif %}
-                        {% if sortie.etat.libelle == 'Ouverte' and sortie.dateHeureDebut|date('U') >= 'now'|date('U') %}
+                        {% if sortie.etat.libelle == 'Ouverte' and sortie.dateLimiteInscription|date('U') >= 'now'|date('U') %}
                                 <span class="right">
                                     <a href="{{ path('sortie_annulation', {'id': sortie.id}) }}" class="boutonSortie">-&nbspAnnuler</a>
                                 </span>
@@ -119,6 +120,7 @@
                     {%  endif %}
                 </div>
         </div>
+            {% endif %}
         {% endfor %}
 </div>
     {% endblock %}
