@@ -23,28 +23,27 @@ class SortieFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom',TextType::class)
+            ->add('nom', TextType::class)
             ->add('dateHeureDebut', DateTimeType::class,
                 [
                     'html5' => true,
                     'widget' => 'single_text'
                 ])
-            ->add('duree',IntegerType::class)
+            ->add('duree', IntegerType::class)
             ->add('dateLimiteInscription', DateType::class,
                 [
                     'html5' => true,
                     'widget' => 'single_text'
                 ])
-            ->add('nbInscriptionsMax',IntegerType::class)
-            ->add('infosSortie',TextareaType::class)
-
-            ->add('lieu', EntityType::class,
-                ["class" => Lieu::class, "choice_label" => "nom"])
+            ->add('nbInscriptionsMax', IntegerType::class)
+            ->add('infosSortie', TextareaType::class)
+            ->add('lieu', LieuType::class)
+//            ->add('lieu', EntityType::class,
+//                ["class" =>Lieu::class, "choice_label" => "nom"])
 
             ->add('Enregistrer', SubmitType::class, ['attr' => ['value' => 'Enregistrer']])
             ->add('Publier', SubmitType::class, ['attr' => ['value' => 'Publier']])
-            ->add('Annuler', SubmitType::class, ['attr' => ['value' => 'Annuler']])
-        ;
+            ->add('Annuler', SubmitType::class, ['attr' => ['value' => 'Annuler']]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
