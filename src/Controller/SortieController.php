@@ -17,13 +17,16 @@ class SortieController extends AbstractController
         $userConnecte = $this->getUser();
         $sortie = $sortieRepository->findOneBy(['id'=>$id]);
         $date = new \DateTime('now');
-        $sites = $siteRepository->findAll();
 
-        if(count($sortie->getParticipants()) < $sortie->getNbInscriptionsMax() && $sortie->getDateLimiteInscription()<=$date){
+        if(count($sortie->getParticipants()) < $sortie->getNbInscriptionsMax() && $sortie->getDateLimiteInscription()>=$date){
              $sortie->addParticipant($userConnecte);
         }
-        //TODO try catch et add flash
-        $em->persist($sortie);
+        try {
+            $em->persist($sortie);
+        }catch (\Exception $exception){
+            dd($exception->getMessage());
+        }
+
         $em->flush();
         $this->addFlash('success', 'Vous êtes bien inscris sur la sortie : '.$sortie->getNom());
         return $this->redirectToRoute('_sorties');
@@ -34,12 +37,15 @@ class SortieController extends AbstractController
     {
         $userConnecte = $this->getUser();
         $sortie = $sortieRepository->findOneBy(['id'=>$id]);
-        $sites = $siteRepository->findAll();
 
         $sortie->removeParticipant($userConnecte);
 
-        //TODO try catch
-        $em->persist($sortie);
+        try {
+            $em->persist($sortie);
+        }catch (\Exception $exception){
+            dd($exception->getMessage());
+        }
+
         $em->flush();
         $this->addFlash('success', 'Vous vous êtes désinscris de la sortie : '.$sortie->getNom());
         return $this->redirectToRoute('_sorties');
