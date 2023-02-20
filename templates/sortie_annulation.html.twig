@@ -12,7 +12,13 @@
 
         {{ form_start(annulationSortie) }}
 
-        {{ form_widget(annulationSortie) }}
+        <div class="crea">{{ form_row(annulationSortie.nom)}}</div>
+        <div class="crea">{{ form_row(annulationSortie.dateHeureDebut) }}</div>
+        <div class="crea">{{ form_row(annulationSortie.duree) }}</div>
+        <div class="crea">{{ form_row(annulationSortie.dateLimiteInscription) }}</div>
+        <div class="crea">{{ form_row(annulationSortie.nbInscriptionsMax) }}</div>
+        <div class="crea">{{ form_row(annulationSortie.lieu) }}</div>
+        <div class="crea">{{ form_row(annulationSortie.infosSortie) }}</div>
 
         {{ form_end(annulationSortie) }}
 

@@ -98,11 +98,11 @@ class CreationSortieController extends AbstractController
 
 #[Route('/modification/{id}', name:'sortie_modification')]
     public function modifierSortie(
-    int                     $id,
-    EtatRepository          $etatRepository,
-    SortieRepository        $sortieRepository,
-    Request                 $request,
-    EntityManagerInterface  $em,
+        int                     $id,
+        EtatRepository          $etatRepository,
+        SortieRepository        $sortieRepository,
+        Request                 $request,
+        EntityManagerInterface  $em,
 
 ):Response
         {
@@ -177,22 +177,28 @@ class CreationSortieController extends AbstractController
     public function annulationSortie(
         int                     $id,
         SortieRepository        $sortieRepository,
-        EntityManager           $em,
+        EntityManagerInterface  $em,
         Request                 $request,
-        Sortie                  $sortie,
         EtatRepository          $etatRepository
         ):Response
         {
 
         $sortieBase =$sortieRepository->findOneBy(['id'=>$id]);
         $sortie=$sortieBase;
-        $annulationSortie = $this->createForm(AnnulationType::class, );
+        $annulationSortie = $this->createForm(AnnulationType::class,$sortie );
         $annulationSortie->handleRequest($request);
 
 
         if($annulationSortie->isSubmitted() && $annulationSortie->isValid())
         {
+            $sortieBase->setSite($sortie->getSite());
+            $sortieBase->setNom($sortie->getNom());
+            $sortieBase->setDateHeureDebut($sortie->getDateHeureDebut());
+            $sortieBase->setDuree($sortie->getDuree());
+            $sortieBase->setDateLimiteInscription($sortie->getDateLimiteInscription());
+            $sortieBase->setNbInscriptionsMax($sortie->getNbInscriptionsMax());
             $sortieBase->setInfosSortie($sortie->getInfosSortie());
+            $sortieBase->setOrganisateur($sortie->getOrganisateur());
 
             if (isset($request->get('modifier_sortie')['Enregistrer']))
             {
