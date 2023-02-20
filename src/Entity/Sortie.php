@@ -27,7 +27,11 @@ class Sortie
     private ?\DateTimeInterface $dateHeureDebut = null;
 
     #[Assert\NotNull]
-    #[Assert\Positive]
+    #[Assert\Range(
+        min: 1,
+        max: 24,
+        notInRangeMessage: 'Veuillez rentrer une durée entre 1 et 24 heures'
+    )]
     #[Assert\NotBlank]
     #[ORM\Column(nullable: true)]
     private ?int $duree = null;
@@ -39,7 +43,11 @@ class Sortie
 
     #[Assert\NotNull]
     #[Assert\NotBlank]
-    #[Assert\Positive]
+    #[Assert\Range(
+        min: 1,
+        max: 100,
+        notInRangeMessage: 'Veuillez rentrer un nombre de participant entre 1 et 100',
+    )]
     #[ORM\Column]
     private ?int $nbInscriptionsMax = null;
 

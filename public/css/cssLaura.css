@@ -477,3 +477,9 @@ a {
     padding: 8px;
 
 }
+
+.crea > div{
+    display: grid;
+    grid-gap: 1rem;
+
+}
