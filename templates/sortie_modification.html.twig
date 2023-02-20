@@ -7,12 +7,18 @@
     {% block body %}
 
 
-<div>
+<div class="crea">
     <h2>Modifier une sortie</h2>
 
     {{ form_start(modifierSortie) }}
+    <div class="crea">{{ form_row(modifierSortie.nom) }}</div>
+    <div class="crea">{{ form_row(modifierSortie.dateHeureDebut) }}</div>
+    <div class="crea">{{ form_row(modifierSortie.duree) }}</div>
+    <div class="crea">{{ form_row(modifierSortie.dateLimiteInscription) }}</div>
+    <div class="crea">{{ form_row(modifierSortie.nbInscriptionsMax) }}</div>
+    <div class="crea">{{ form_row(modifierSortie.infosSortie) }}</div>
+    <div class="crea">{{ form_row(modifierSortie.lieu) }}</div>
 
-    {{ form_widget(modifierSortie) }}
 
     {{ form_end(modifierSortie) }}
 
