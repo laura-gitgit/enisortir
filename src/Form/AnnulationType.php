@@ -50,7 +50,7 @@ class AnnulationType extends AbstractType
             ->add('infosSortie',TextareaType::class)
 
             ->add('Enregistrer', SubmitType::class, ['attr' => ['value' => 'Enregistrer']])
-            ->add('Annuler', SubmitType::class, ['attr' => ['value' => 'Annuler']])
+
         ;
     }
 

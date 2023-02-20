@@ -482,4 +482,8 @@ a {
     display: grid;
     grid-gap: 1rem;
 
+
+}
+.alert-success{
+    text-align: center;
 }

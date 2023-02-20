@@ -8,6 +8,7 @@ use App\Entity\Sortie;
 use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -43,7 +44,7 @@ class SortieFormType extends AbstractType
 
             ->add('Enregistrer', SubmitType::class, ['attr' => ['value' => 'Enregistrer']])
             ->add('Publier', SubmitType::class, ['attr' => ['value' => 'Publier']])
-            ->add('Annuler', SubmitType::class, ['attr' => ['value' => 'Annuler']]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
