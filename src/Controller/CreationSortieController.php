@@ -51,6 +51,7 @@ class CreationSortieController extends AbstractController
                 $em->persist($sortie);
                 $em->flush();
 
+                $this->addFlash('success', 'La Sortie est crée.');
                 }catch(\Exception $exception){
                     dd($exception->getMessage());
                 }
@@ -64,6 +65,7 @@ class CreationSortieController extends AbstractController
                 $sortie->setEtat($etatRepository->findOneBy(['id' => 2]));
                 $em->persist($sortie);
                 $em->flush();
+                $this->addFlash('success', 'La Sortie est publiée.');
 
                 }catch(\Exception $exception){
                     dd($exception->getMessage());
@@ -129,10 +131,11 @@ class CreationSortieController extends AbstractController
 
                      $em->persist($sortieBase);
                      $em->flush();
+                     $this->addFlash('success', 'La Sortie est modifiée et crée.');
                      }catch (\Exception $exception){
                         dd($exception->getMessage($exception->getMessage()));
                     }
-                     return $this->redirectToRoute('_main_sorties');
+                     return $this->redirectToRoute('_sorties');
 
                  } elseif (isset($request->get('modifier_sortie')['Publier']))
                  {
@@ -140,16 +143,19 @@ class CreationSortieController extends AbstractController
                      $sortie->setEtat($etatRepository->findOneBy(['id' => 2]));
                      $em->persist($sortieBase);
                      $em->flush();
+                     $this->addFlash('success', 'La Sortie est modifiée et Publiée.');
+
                      }catch(\Exception $exception){
                          dd($exception->getMessage());
                      }
-                 return $this->redirectToRoute('_main_sorties');
+                 return $this->redirectToRoute('_sorties');
 
                  }elseif (isset($request->get('modifier_sortie')['Supprimer']))
                  {
                       try{
                      $em->remove($sortieBase);
                      $em->flush();
+                     $this->addFlash('success', 'La Sortie est supprimée.');
 
                       }catch (\Exception $exception){
                           dd($exception->getMessage());
@@ -191,10 +197,12 @@ class CreationSortieController extends AbstractController
             if (isset($request->get('modifier_sortie')['Enregistrer']))
             {
                 try{
-                    $sortie->setEtat($etatRepository->findOneBy(['id' => 5])); // TO DO verifier id etat
+                    $sortie->setEtat($etatRepository->findOneBy(['id' => 6]));
 
                     $em->persist($sortieBase);
                     $em->flush();
+                    $this->addFlash('success', 'La Sortie est annuléé.');
+
                 }catch (\Exception $exception){
                     dd($exception->getMessage());
                 }
@@ -204,7 +212,6 @@ class CreationSortieController extends AbstractController
                 return $this->redirectToRoute('_sorties');
             }
         }
-
         return $this->render('sortie_annulation.html.twig',
         compact('annulationSortie')
         );

@@ -466,3 +466,14 @@ a {
 #input_rechercher:hover span:nth-child(4 ) {
     bottom: 50%;
 }
+
+.crea {
+    display: block;
+    grid-auto-rows: 0fr 1fr 0fr;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    width: 22em;
+    padding: 8px;
+
+}
