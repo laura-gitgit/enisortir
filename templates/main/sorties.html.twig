@@ -86,35 +86,35 @@
                             <span class="left">
                                  <a href="{{ path('sortie_detail', {'id': sortie.id}) }}" class="boutonSortie">Afficher&nbsp</a>
                             </span>
-                        {% if app.user not in sortie.participants %}
-                            {% if sortie.etat.libelle == 'Ouverte' %}
-                                {% if sortie.dateLimiteInscription < ('now') %}
+                        {% if app.user not in sortie.participants and sortie.etat.libelle == 'Ouverte'and sortie.dateLimiteInscription|date('U') >= 'now'|date('U')%}
                             <span class="right">
                                 <a href="{{ path('_inscriptionSortie', {'id': sortie.id}) }}" class="boutonSortie">-&nbspS'inscrire</a>
                             </span>
-                                {% endif %}
-                            {% endif %}
                         {% endif %}
-                        {% if  app.user in sortie.participants %}
-                            {% if sortie.dateHeureDebut < ('now') %}
+                        {% if  app.user in sortie.participants and sortie.dateHeureDebut|date('U') >= 'now'|date('U')%}
                              <span class="right">
                                 <a href="{{ path('_desinscriptionSortie', {'id': sortie.id}) }}" class="boutonSortie">-&nbspSe désister</a>
                             </span>
-                            {% endif %}
                         {% endif %}
                     {% elseif sortie.organisateur == app.user %}
+                        {% if sortie.dateLimiteInscription|date('U') >= 'now'|date('U') %}
                         <span>
                             <a href="{{ path('sortie_modification', {'id': sortie.id}) }}" class="boutonSortie">Modifier&nbsp</a>
                         </span>
+                            {% else %}
+                                <span class="left">
+                                     <a href="{{ path('sortie_detail', {'id': sortie.id}) }}" class="boutonSortie">Afficher&nbsp</a>
+                                </span>
+                        {% endif %}
                         {% if sortie.etat.libelle == 'Créée' %}
                             <span class="right">
                                 <a href="{{ path('sortie_modification', {'id': sortie.id}) }}" class="boutonSortie">-&nbspPublier</a>
                             </span>
                         {%  endif %}
-                        {% if sortie.etat.libelle == 'Ouverte' %}
-                            <span class="right">
-                                <a href="{{ path('sortie_modification', {'id': sortie.id}) }}" class="boutonSortie">-&nbspAnnuler</a>
-                            </span>
+                        {% if sortie.etat.libelle == 'Ouverte' and sortie.dateHeureDebut|date('U') >= 'now'|date('U') %}
+                                <span class="right">
+                                    <a href="{{ path('sortie_annulation', {'id': sortie.id}) }}" class="boutonSortie">-&nbspAnnuler</a>
+                                </span>
                         {%  endif %}
                     {%  endif %}
                 </div>
