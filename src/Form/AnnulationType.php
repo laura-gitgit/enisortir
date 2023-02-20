@@ -29,7 +29,7 @@ class AnnulationType extends AbstractType
                     'disabled' => true
                 ])
             ->add('duree', TextType::class,[
-                'disabled'=> true
+                'disabled'=> true,
 
             ])
             ->add('dateLimiteInscription', DateTimeType::class,
