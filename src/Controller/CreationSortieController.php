@@ -153,7 +153,6 @@ class CreationSortieController extends AbstractController
                      try{
                      $sortie->setEtat($etatRepository->findOneBy(['id' => 2]));
                      $em->persist($sortieBase);
-//                     $em->flush();
                      $this->addFlash('success', 'La Sortie est modifiée et Publiée.');
                      }catch(\Exception $exception){
                          dd($exception->getMessage());
