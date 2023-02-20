@@ -28,12 +28,12 @@
     </ul>
     {% if app.user in sortie.participants %}
         {% if sortie.participants | length < sortie.nbInscriptionsMax %}
-        <a href="{{ path('_inscriptionSortie', {'id': sortie.id}) }}">
+        <a href="{{ path('_desinscriptionSortie', {'id': sortie.id}) }}">
             <input type="submit" value="Se désinscrire">
         </a>
             {%  endif %}
         {% else %}
-            <a href="{{ path('_desinscriptionSortie', {'id': sortie.id}) }}">
+            <a href="{{ path('_inscriptionSortie', {'id': sortie.id}) }}">
                 <input type="submit" value="S'inscrire">
             </a>
     {% endif %}

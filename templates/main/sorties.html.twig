@@ -4,11 +4,10 @@
 {% block body %}
 <div class="infos_user">
     {% if app.user %}
-        <p>Date du jour : {{ date | date('d/m/Y') }}</p>
+        <p>Date du jour : {{ ('today') | date('d/m/Y') }}</p>
         <p>Participant : {{ app.user.prenom }}</p>
     {% endif %}
 </div>
-
         <div class="formulaire_recherche">
             <form action="{{ path('_tri') }}" method="get" name="triSorties" class="form_sortie">
                 <div class="filtre">
@@ -85,31 +84,36 @@
                 <div class="box actions">
                     {%  if sortie.organisateur != app.user and sortie.participants | length < sortie.nbInscriptionsMax %}
                             <span class="left">
-                                 <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Afficher&nbsp</a>
+                                 <a href="{{ path('sortie_detail', {'id': sortie.id}) }}" class="boutonSortie">Afficher&nbsp</a>
                             </span>
-                        {#  TODO inscription à une sortie #}
                         {% if app.user not in sortie.participants %}
+                            {% if sortie.etat.libelle == 'Ouverte' %}
+                                {% if sortie.dateLimiteInscription < ('now') %}
                             <span class="right">
-                                <a href="{{ path('_desinscriptionSortie', {'id': sortie.id}) }}">-&nbspS'inscrire</a>
+                                <a href="{{ path('_inscriptionSortie', {'id': sortie.id}) }}" class="boutonSortie">-&nbspS'inscrire</a>
                             </span>
+                                {% endif %}
+                            {% endif %}
                         {% endif %}
                         {% if  app.user in sortie.participants %}
+                            {% if sortie.dateHeureDebut < ('now') %}
                              <span class="right">
-                                <a href="{{ path('_inscriptionSortie', {'id': sortie.id}) }}">-&nbspSe désister</a>
+                                <a href="{{ path('_desinscriptionSortie', {'id': sortie.id}) }}" class="boutonSortie">-&nbspSe désister</a>
                             </span>
+                            {% endif %}
                         {% endif %}
                     {% elseif sortie.organisateur == app.user %}
                         <span>
-                            <a href="{{ path('sortie_modification', {'id': sortie.id}) }}">Modifier&nbsp</a>
+                            <a href="{{ path('sortie_modification', {'id': sortie.id}) }}" class="boutonSortie">Modifier&nbsp</a>
                         </span>
                         {% if sortie.etat.libelle == 'Créée' %}
                             <span class="right">
-                                <a href="{{ path('sortie_modification', {'id': sortie.id}) }}">-&nbspPublier</a>
+                                <a href="{{ path('sortie_modification', {'id': sortie.id}) }}" class="boutonSortie">-&nbspPublier</a>
                             </span>
                         {%  endif %}
                         {% if sortie.etat.libelle == 'Ouverte' %}
                             <span class="right">
-                                <a href="{{ path('sortie_modification', {'id': sortie.id}) }}">-&nbspAnnuler</a>
+                                <a href="{{ path('sortie_modification', {'id': sortie.id}) }}" class="boutonSortie">-&nbspAnnuler</a>
                             </span>
                         {%  endif %}
                     {%  endif %}
