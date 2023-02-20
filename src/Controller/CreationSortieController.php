@@ -200,10 +200,11 @@ class CreationSortieController extends AbstractController
             $sortieBase->setInfosSortie($sortie->getInfosSortie());
             $sortieBase->setOrganisateur($sortie->getOrganisateur());
 
-            if (isset($request->get('modifier_sortie')['Enregistrer']))
+            if (isset($request->get('annulation')['Enregistrer']))
             {
+
                 try{
-                    $sortie->setEtat($etatRepository->findOneBy(['id' => 6]));
+                    $sortieBase->setEtat($etatRepository->findOneBy(['id' => 6]));
 
                     $em->persist($sortieBase);
                     $em->flush();
