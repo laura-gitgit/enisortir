@@ -43,7 +43,6 @@ class ModifierSortieType extends AbstractType
 
             ->add('Enregistrer', SubmitType::class, ['attr' => ['value' => 'Enregistrer']])
             ->add('Publier', SubmitType::class, ['attr' => ['value' => 'Publier']])
-            ->add('Annuler', SubmitType::class, ['attr' => ['value' => 'Annuler']])
             ->add('Supprimer', SubmitType::class,['attr' => ['value' => 'Supprimer']])
 
         ;

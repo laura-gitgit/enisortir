@@ -28,9 +28,9 @@ class Sortie
 
     #[Assert\NotNull]
     #[Assert\Range(
+        notInRangeMessage: 'Veuillez rentrer une durée entre 1 et 24 heures',
         min: 1,
-        max: 24,
-        notInRangeMessage: 'Veuillez rentrer une durée entre 1 et 24 heures'
+        max: 24
     )]
     #[Assert\NotBlank]
     #[ORM\Column(nullable: true)]
@@ -44,9 +44,9 @@ class Sortie
     #[Assert\NotNull]
     #[Assert\NotBlank]
     #[Assert\Range(
+        notInRangeMessage: 'Veuillez rentrer un nombre de participant entre 1 et 100',
         min: 1,
         max: 100,
-        notInRangeMessage: 'Veuillez rentrer un nombre de participant entre 1 et 100',
     )]
     #[ORM\Column]
     private ?int $nbInscriptionsMax = null;
