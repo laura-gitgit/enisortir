@@ -47,7 +47,6 @@ class SortieFormType extends AbstractType
             ->add('Enregistrer', SubmitType::class, ['attr' => ['value' => 'Enregistrer']])
             ->add('Publier', SubmitType::class, ['attr' => ['value' => 'Publier']]);
 
-
     }
 
     public function configureOptions(OptionsResolver $resolver): void

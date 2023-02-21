@@ -78,14 +78,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $pseudo = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $image;
+    private ?string $image = null;
 
-
-    #[Vich\UploadableField(mapping: "avatar", fileNameProperty: "image")]
+    #[Vich\UploadableField(mapping: "avatar", fileNameProperty: "image", size: "20M")]
     private $imageFile;
 
     #[ORM\Column(nullable: true)]
-    private ?DateTime $updatedAt;
+    private ?DateTime $updatedAt = null;
 
     public function __construct()
     {
