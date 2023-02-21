@@ -40,17 +40,13 @@
             <div class="nav-container">
                 {% if app.user %}
 
-                    {% if path('profil_modif') %}
-                    <a class="nav-tab" href="{{ path('_sorties') }}">Accueil</a>
-                    <a class="nav-tab" href="{{ path('sortie_creation') }}">Créer une sortie</a>
-                    <a class="nav-tab" href="{{ path('app_logout') }}" title="logout" >Se déconnecter</a>
-                    <span class="nav-tab-slider"></span>
-                     {% else%}
+
                          <a class="nav-tab" href="{{ path('_sorties') }}">Accueil</a>
                          <a class="nav-tab" href="{{ path('profil_modif') }}">Mon profil</a>
                          <a class="nav-tab" href="{{ path('sortie_creation') }}">Créer une sortie</a>
                          <a class="nav-tab" href="{{ path('app_logout') }}" title="logout" >Se déconnecter</a>
-                     {% endif %}
+                         <span class="nav-tab-slider"></span>
+
                 {% else %}
 
                 {% endif %}

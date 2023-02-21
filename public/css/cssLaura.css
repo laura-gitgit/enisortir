@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 .container_logo {
     display: inherit;
     align-items: center;
@@ -63,6 +63,7 @@ body {
     height: 100vh;
     grid-auto-rows: 0fr 1fr 0fr;
     margin: 0;
+    -webkit-font-smoothing: antialiased;
 }
 
 main {
@@ -482,6 +483,8 @@ a {
     padding: 8px;
 
 }
+
+
 
 @media screen and (max-width: 900px) {
     .footer {
