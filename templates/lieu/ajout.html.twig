@@ -1,8 +1,12 @@
 {%  extends 'base.html.twig' %}
 
-
+{% block body %}
 <div>
     {{ form_start(lieuForm) }}
+
     {{ form_widget(lieuForm) }}
+
     {{ form_end(lieuForm) }}
 </div>
+
+{% endblock %}
