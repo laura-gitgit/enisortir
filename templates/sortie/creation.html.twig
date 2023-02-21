@@ -2,25 +2,23 @@
 
 {% block body %}
 
-
     <div class="crea">
-<h2>Ajouter une sortie</h2>
-
+    <h2>Ajouter une sortie</h2>
         {{ form_start(sortieForm) }}
 
-    <div class="crea">{{ form_row(sortieForm.nom) }}</div>
+    <div class="crea">{{ form_row(sortieForm.nom)  }}</div>
     <div class="crea">{{ form_row(sortieForm.dateHeureDebut) }}</div>
-    <div class="crea">{{ form_row(sortieForm.duree) }}</div>
     <div class="crea">{{ form_row(sortieForm.dateLimiteInscription) }}</div>
     <div class="crea">{{ form_row(sortieForm.nbInscriptionsMax) }}</div>
-    <div class="crea">{{ form_row(sortieForm.infosSortie) }}</div>
-    <div class="crea">{{ form_row(sortieForm.lieu) }}</div>
+    <div class="crea">{{ form_row(sortieForm.duree) }}</div>
 
+    <div class="crea">{{ form_row(sortieForm.infosSortie) }}</div>
+
+    <div class="crea">{{ form_row(sortieForm.lieu) }}
+        <a href="{{ path('lieu_ajoutLieu') }}">ajouter un lieu</a></div>
     <div class="crea">{{  form_row(sortieForm.Enregistrer)}}</div>
     <div class="crea">{{  form_row(sortieForm.Publier)}}</div>
     <div class="crea">{{  form_row(sortieForm.Annuler)}}</div>
-
         {{ form_end(sortieForm) }}
-
     </div>
 {% endblock %}

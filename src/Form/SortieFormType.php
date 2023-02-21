@@ -16,6 +16,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SortieFormType extends AbstractType
@@ -37,13 +39,15 @@ class SortieFormType extends AbstractType
                 ])
             ->add('nbInscriptionsMax', IntegerType::class)
             ->add('infosSortie', TextareaType::class)
-            ->add('lieu', LieuType::class)
-//            ->add('lieu', EntityType::class,
-//                ["class" =>Lieu::class, "choice_label" => "nom"])
+//            ->add('lieu', LieuType::class)
+            ->add('lieu', EntityType::class,
+                ["class" =>Lieu::class, 'placeholder' => 'Sélectionnez un lieu', "choice_label" => "nom"])
 
             ->add('Enregistrer', SubmitType::class, ['attr' => ['value' => 'Enregistrer']])
             ->add('Publier', SubmitType::class, ['attr' => ['value' => 'Publier']])
             ->add('Annuler', SubmitType::class, ['attr' => ['value' => 'Annuler']]);
+
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
