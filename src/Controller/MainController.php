@@ -49,27 +49,10 @@ class MainController extends AbstractController
         $nomSortie = $request->query->get('nomSortie');
         $debutSortie = $request->query->get('debutSortie');
         $finSortie = $request->query->get('finSortie');
-        $organisateur = $request->query->get('organisateur');
-        $inscrit = $request->query->get('inscrit');
-        $nonInscrit = $request->query->get('nonInscrit');
-        $sortiePassee = $request->query->get('sortiesPassees');
-        $isOrganisateur = false;
-        $isInscrit = false;
-        $isNotInscrit = false;
-        $sortieTerminee = false;
-
-        if ($organisateur == "on"){
-            $isOrganisateur = true;
-        }
-        if ($inscrit == "on"){
-            $isInscrit = true;
-        }
-        if ($nonInscrit == "on"){
-            $isNotInscrit = true;
-        }
-        if ($sortiePassee == "on"){
-            $sortieTerminee = true;
-        }
+        $isOrganisateur = ($request->query->get('organisateur') == "on") ? true : false;
+        $isInscrit = ($request->query->get('inscrit') == "on") ? true : false;
+        $isNotInscrit = ($request->query->get('nonInscrit') == "on") ? true : false;
+        $sortieTerminee = ($request->query->get('sortiesPassees') == "on") ? true : false;
 
         $sorties = $sortieRepository->findAllByAllParameters2($nomSite, $nomSortie, $debutSortie, $finSortie, $isOrganisateur, $userConnecte, $isInscrit, $isNotInscrit, $sortieTerminee);
 

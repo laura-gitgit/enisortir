@@ -15,7 +15,8 @@
     <div class="crea">{{ form_row(sortieForm.infosSortie) }}</div>
 
     <div class="crea">{{ form_row(sortieForm.lieu) }}
-        <a href="{{ path('lieu_ajoutLieu') }}">ajouter un lieu</a></div>
+        <a href="{{ path('lieu_ajoutLieu') }}">
+            <img src="{{ asset('images/plus.png') }}" alt="ajouter un lieu"></a></div>
     <div class="crea">{{  form_row(sortieForm.Enregistrer)}}</div>
     <div class="crea">{{  form_row(sortieForm.Publier)}}</div>
 
