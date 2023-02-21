@@ -8,6 +8,7 @@
         <link rel="stylesheet" type="text/css"  href="{{ asset('css/cssLaura.css') }}">
 {#        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" data-deferred="1"></script>#}
 {#        <script src="{{ asset('scripts/scriptHeader.js') }}"></script>#}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
     </head>
     <body>
     <header>
@@ -37,11 +38,22 @@
                 <span class="m">E</span>
             </h3>
             <div class="nav-container">
-                <a class="nav-tab" href="{{ path('_sorties') }}">Accueil</a>
-                <a class="nav-tab" href="{{ path('profil_modif') }}">Mon profil</a>
-                <a class="nav-tab" href="{{ path('app_logout') }}" title="logout" >Se déconnecter</a>
-                <a class="nav-tab" href="{{ path('sortie_creation') }}">Créer une sortie</a>
-                <span class="nav-tab-slider"></span>
+                {% if app.user %}
+
+                    {% if path('profil_modif') %}
+                    <a class="nav-tab" href="{{ path('_sorties') }}">Accueil</a>
+                    <a class="nav-tab" href="{{ path('sortie_creation') }}">Créer une sortie</a>
+                    <a class="nav-tab" href="{{ path('app_logout') }}" title="logout" >Se déconnecter</a>
+                    <span class="nav-tab-slider"></span>
+                     {% else%}
+                         <a class="nav-tab" href="{{ path('_sorties') }}">Accueil</a>
+                         <a class="nav-tab" href="{{ path('profil_modif') }}">Mon profil</a>
+                         <a class="nav-tab" href="{{ path('sortie_creation') }}">Créer une sortie</a>
+                         <a class="nav-tab" href="{{ path('app_logout') }}" title="logout" >Se déconnecter</a>
+                     {% endif %}
+                {% else %}
+
+                {% endif %}
             </div>
         </section>
 
@@ -61,7 +73,7 @@
     </main>
     <footer class="footer">
         <div class="container-footer">
-            <p>&copy; Eni Sortie {{ "now" | date('Y') }} Laura, Jon et Xavier</p>
+            <p>&copy; Eni Sortie {{ "now" | date('Y') }} Laura, John et Xavier</p>
         </div>
     </footer>
     </body>

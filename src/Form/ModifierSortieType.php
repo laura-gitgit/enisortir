@@ -20,7 +20,7 @@ class ModifierSortieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom',TextType::class)
+            ->add('nom',\Symfony\Component\Form\Extension\Core\Type\TextType::class)
             ->add('dateHeureDebut', DateTimeType::class,
                 [
                 'html5'=>true,

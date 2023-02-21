@@ -43,7 +43,7 @@ class SortieFormType extends AbstractType
 //                ["class" =>Lieu::class, "choice_label" => "nom"])
 
             ->add('Enregistrer', SubmitType::class, ['attr' => ['value' => 'Enregistrer']])
-            ->add('Publier', SubmitType::class, ['attr' => ['value' => 'Publier']])
+            ->add('Publier', SubmitType::class, ['attr' => ['value' => 'Publier']]);
 
     }
 
