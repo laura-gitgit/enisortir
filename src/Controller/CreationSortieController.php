@@ -21,24 +21,43 @@ use Symfony\Component\Routing\Annotation\Route;
 class CreationSortieController extends AbstractController
 {
 
-    #[Route('/creation', name: 'sortie_creation')]
-    public function create(
-        EntityManagerInterface $em,
-        Request                $request, EtatRepository $etatRepository
-
-    ): Response
+    /**
+     * @param Sortie|null $sortieBase
+     * @param Sortie|null $sortie
+     * @return void
+     */
+    public function extracted(?Sortie $sortieBase, ?Sortie $sortie): void
     {
-        //instance de sortie
+        $sortieBase->setSite($sortie->getSite());
+        $sortieBase->setNom($sortie->getNom());
+        $sortieBase->setDateHeureDebut($sortie->getDateHeureDebut());
+        $sortieBase->setDuree($sortie->getDuree());
+        $sortieBase->setDateLimiteInscription($sortie->getDateLimiteInscription());
+        $sortieBase->setNbInscriptionsMax($sortie->getNbInscriptionsMax());
+        $sortieBase->setInfosSortie($sortie->getInfosSortie());
+        $sortieBase->setOrganisateur($sortie->getOrganisateur());
+    }
+
+
+    /**
+     * @param EntityManagerInterface $em
+     * @param Request $request
+     * @param EtatRepository $etatRepository
+     * @return Response
+     */
+    #[Route('/creation', name: 'sortie_creation')]
+        public function create(
+        EntityManagerInterface $em,
+        Request                $request,
+        EtatRepository         $etatRepository
+     ): Response
+    {
         $sortie = new Sortie();
         $sortie->setDateHeureDebut(new \DateTime());
         $user = $this->getUser();
         $sortie->setOrganisateur($user);
         $sortie->setSite($user->getSite());
-
         $sortieForm = $this->createForm(SortieFormType::class, $sortie);
-
-
-
         $sortieForm->handleRequest($request);
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid())
@@ -55,9 +74,7 @@ class CreationSortieController extends AbstractController
                 }catch(\Exception $exception){
                     dd($exception->getMessage());
                 }
-
                 return $this->redirectToRoute('_sorties');
-
 
             } else if ( isset($request->get('sortie_form')['Publier'])){
 
@@ -70,109 +87,105 @@ class CreationSortieController extends AbstractController
                 }catch(\Exception $exception){
                     dd($exception->getMessage());
                 }
-
             return $this->redirectToRoute('_sorties');
-
             }
         }
+
         return $this->render('sortie/creation.html.twig',
             compact('sortieForm')
         );
     }
-
-
-#[Route('/detail/{id}', name: 'sortie_detail')]
-    public function afficherSortie(
-        int $id,
-    SortieRepository $sortieRepository
-):Response
+    /**
+     * @param int $id
+     * @param SortieRepository $sortieRepository
+     * @return Response
+     */
+    #[Route('/detail/{id}', name: 'sortie_detail')]
+        public function afficherSortie(
+        int              $id,
+        SortieRepository $sortieRepository
+        ):Response
         {
             $sortie =$sortieRepository->findOneBy(['id'=>$id]);
             return $this->render('sortie/detail.html.twig',
                 compact('sortie')
             );
-
 }
-
-#[Route('/modification/{id}', name:'sortie_modification')]
-    public function modifierSortie(
+    /**
+     * @param int $id
+     * @param EtatRepository $etatRepository
+     * @param SortieRepository $sortieRepository
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
+    #[Route('/modification/{id}', name:'sortie_modification')]
+        public function modifierSortie(
         int                     $id,
         EtatRepository          $etatRepository,
         SortieRepository        $sortieRepository,
         Request                 $request,
         EntityManagerInterface  $em,
-
-):Response
+        ):Response
         {
-
             $sortieBase =$sortieRepository->findOneBy(['id'=>$id]);
             $sortie=$sortieBase;
-
             $modifierSortie = $this->createForm(ModifierSortieType::class, $sortie);
             $modifierSortie->handleRequest($request);
 
              if ($modifierSortie->isSubmitted()&& $modifierSortie->isValid()) {
 
-                 $sortieBase->setSite($sortie->getSite());
-                 $sortieBase->setNom($sortie->getNom());
-                 $sortieBase->setDateHeureDebut($sortie->getDateHeureDebut());
-                 $sortieBase->setDuree($sortie->getDuree());
-                 $sortieBase->setDateLimiteInscription($sortie->getDateLimiteInscription());
-                 $sortieBase->setNbInscriptionsMax($sortie->getNbInscriptionsMax());
-                 $sortieBase->setInfosSortie($sortie->getInfosSortie());
-                 $sortieBase->setOrganisateur($sortie->getOrganisateur());
+                 $this->extracted($sortieBase, $sortie);
 
-                 if (isset($request->get('modifier_sortie')['Enregistrer']))
-                 {
+                 switch ($request->get('modifier_sortie')!=null){
+
+                     case (isset($request->get('modifier_sortie')['Enregistrer'])):
                     try{
                      $sortieBase->setEtat($etatRepository->findOneBy(['id' => 1]));
-
                      $em->persist($sortieBase);
-                     $em->flush();
                      $this->addFlash('success', 'La Sortie est modifiée et crée.');
                      }catch (\Exception $exception){
-                        dd($exception->getMessage($exception->getMessage()));
+                        dd($exception->getMessage());
                     }
-                     return $this->redirectToRoute('_sorties');
+                    break;
 
-                 } elseif (isset($request->get('modifier_sortie')['Publier']))
-                 {
+                     case (isset($request->get('modifier_sortie')['Publier'])):
                      try{
                      $sortie->setEtat($etatRepository->findOneBy(['id' => 2]));
                      $em->persist($sortieBase);
-                     $em->flush();
                      $this->addFlash('success', 'La Sortie est modifiée et Publiée.');
-
                      }catch(\Exception $exception){
                          dd($exception->getMessage());
                      }
-                 return $this->redirectToRoute('_sorties');
+                     break;
 
-                 }elseif (isset($request->get('modifier_sortie')['Supprimer']))
-                 {
+                     case (isset($request->get('modifier_sortie')['Supprimer'])):
                       try{
                      $em->remove($sortieBase);
-                     $em->flush();
                      $this->addFlash('success', 'La Sortie est supprimée.');
-
                       }catch (\Exception $exception){
                           dd($exception->getMessage());
                       }
-                     return $this->redirectToRoute('_sorties');
-
-                 }else{
-                     return $this->redirectToRoute('_sorties');
+                      break;
                  }
+               $em->flush();
+                 return $this->redirectToRoute('_sorties');
              }
-
-
-             return $this->render('sortie_modification.html.twig',
+            return $this->render('sortie_modification.html.twig',
                 compact('modifierSortie')
-        );
+       );
 }
 
-#[Route('/annulation/{id}', name:'sortie_annulation')]
-    public function annulationSortie(
+    /**
+     * @param int $id
+     * @param SortieRepository $sortieRepository
+     * @param EntityManagerInterface $em
+     * @param Request $request
+     * @param EtatRepository $etatRepository
+     * @return Response
+     */
+    #[Route('/annulation/{id}', name:'sortie_annulation')]
+        public function annulationSortie(
         int                     $id,
         SortieRepository        $sortieRepository,
         EntityManagerInterface  $em,
@@ -189,14 +202,7 @@ class CreationSortieController extends AbstractController
 
         if($annulationSortie->isSubmitted() && $annulationSortie->isValid())
         {
-            $sortieBase->setSite($sortie->getSite());
-            $sortieBase->setNom($sortie->getNom());
-            $sortieBase->setDateHeureDebut($sortie->getDateHeureDebut());
-            $sortieBase->setDuree($sortie->getDuree());
-            $sortieBase->setDateLimiteInscription($sortie->getDateLimiteInscription());
-            $sortieBase->setNbInscriptionsMax($sortie->getNbInscriptionsMax());
-            $sortieBase->setInfosSortie($sortie->getInfosSortie());
-            $sortieBase->setOrganisateur($sortie->getOrganisateur());
+            $this->extracted($sortieBase, $sortie);
 
             if (isset($request->get('annulation')['Enregistrer']))
             {
@@ -222,4 +228,6 @@ class CreationSortieController extends AbstractController
         );
 
     }
+
+
 }
