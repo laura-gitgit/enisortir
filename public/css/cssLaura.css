@@ -114,11 +114,16 @@ h3.span {
     color: #faebd7;
     z-index: 4;
 }
-/*span:hover {*/
-/*    color: goldenrod;*/
-/*    font-weight: 500;*/
-/*    font-size: 2.2vw;*/
-/*}*/
+
+.form_lieu{
+    display: flex;
+    justify-content: center;
+    padding: 4rem 6% 1rem 1rem;
+}
+
+.crea img {
+    padding: 1rem 8rem;
+}
 
 a {
     text-decoration: none;
