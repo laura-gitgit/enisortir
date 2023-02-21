@@ -3,13 +3,15 @@
 namespace App\Form;
 
 use App\Entity\Lieu;
-use App\Entity\Serie;
-use App\Entity\Sortie;
 use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;use Symfony\Component\OptionsResolver\OptionsResolver;
+use function Sodium\add;
 
 class LieuType extends AbstractType
 {
@@ -21,14 +23,15 @@ class LieuType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('lieu', EntityType::class,
-                ["class" =>Lieu::class, "choice_label" => "nom"])
-//            ->add('lieu', EntityType::class,
-//                ["class" =>Lieu::class, "choice_label" => "ville.nom"])
+
+            ->add('nom')
+            ->add('rue')
+            ->add('latitude')
+            ->add('longitude')
             ->add('ville', EntityType::class,
-                ["class" =>Ville::class, "choice_label" => "nom"])
-////            ->add('ville', VilleFormType::class)
-;
+                ["class" =>Ville::class, 'placeholder' => 'Sélectionnez une ville', "choice_label" => "nom"])
+            ->add('Enregistrer', SubmitType::class, ['attr' => ['value' => 'Enregistrer']]);
+
     }
 
     /***

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Lieu;
 use App\Form\LieuNomType;
 use App\Form\LieuType;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,10 +20,11 @@ class LieuController extends AbstractController
      * @return Response
      */
     #[Route('/lieu/ajout', name: 'lieu_ajoutLieu')]
-    public function ajoutLieu(Request $request, EntityManagerInterface $em): Response
+    public function ajoutLieu(Request $request, EntityManagerInterface $em, VilleRepository $villeRepository): Response
     {
         $lieu = new Lieu();
-        $lieuForm = $this->createForm(LieuType::class);
+        $villes = $villeRepository->findAll();
+        $lieuForm = $this->createForm(LieuType::class, $lieu);
         $lieuForm->handleRequest($request);
 
         if($lieuForm->isSubmitted() && $lieuForm->isValid()){
@@ -37,28 +39,7 @@ class LieuController extends AbstractController
             $this->redirectToRoute('sortie_creation');
         }
 
-        return $this->render('lieu/ajout.html.twig', compact('lieuForm'));
+        return $this->render('lieu/ajout.html.twig', compact('lieuForm', 'villes'));
     }
 
-    #[Route('/lieu/ajoutNom', name: 'lieu_ajoutNomLieu')]
-    public function ajoutNomLieu(Request $request, EntityManagerInterface $em): Response
-    {
-        $lieu = new Lieu();
-        $lieuForm = $this->createForm(LieuNomType::class);
-        $lieuForm->handleRequest($request);
-
-        if($lieuForm->isSubmitted() && $lieuForm->isValid()){
-            try {
-                $em->persist($lieu);
-            }catch (\Exception $exception){
-                dd($exception->getMessage());
-            }
-
-            $em->flush();
-            $this->addFlash('success', 'Lieu ajouté avec succès');
-            $this->redirectToRoute('sortie_creation');
-        }
-
-        return $this->render('lieu/ajout.html.twig', compact('lieuForm'));
-    }
 }

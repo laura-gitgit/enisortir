@@ -1,21 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
+<div class="crea">
     <h2>Mon profil</h2>
-    <div>
+
 
         <img src="{{ asset('images/avatar/'~profil.image) }}" alt="" height="150" width="150">
 
         {{ form_start(profilForm) }}
-        {{ form_row(profilForm.pseudo) }}
-        {{ form_row(profilForm.prenom) }}
-        {{ form_row(profilForm.nom) }}
-        {{ form_row(profilForm.telephone) }}
-        {{ form_row(profilForm.email) }}
-        {{ form_row(profilForm.password) }}
-        {{ form_row(profilForm.imageFile) }}
-        {{ form_row(profilForm.site) }}
+
+    <div class="crea">{{ form_row(profilForm.pseudo) }}</div>
+        <div class="crea">{{ form_row(profilForm.prenom) }}</div>
+            <div class="crea">{{ form_row(profilForm.nom) }}</div>
+                <div class="crea">{{ form_row(profilForm.telephone) }}</div>
+                    <div class="crea">{{ form_row(profilForm.email) }}</div>
+                        <div class="crea">{{ form_row(profilForm.password) }}</div>
+                            <div class="crea"> {{ form_row(profilForm.imageFile) }}</div>
+                                <div class="crea">{{ form_row(profilForm.site) }}</div>
         <button>Enregistrer</button>
         {{ form_end(profilForm) }}
         <a href="{{ path('_sorties') }}"><button>Annuler</button></a>
