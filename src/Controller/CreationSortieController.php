@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class CreationSortieController extends AbstractController
 {
@@ -28,6 +29,7 @@ class CreationSortieController extends AbstractController
      * @param EtatRepository $etatRepository
      * @return Response
      */
+    #[IsGranted('ROLE_USER_ACITF')]
     #[Route('/creation', name: 'sortie_creation')]
         public function create(
         EntityManagerInterface $em,
@@ -84,6 +86,7 @@ class CreationSortieController extends AbstractController
      * @param SortieRepository $sortieRepository
      * @return Response
      */
+    #[IsGranted('ROLE_USER_ACTIF')]
     #[Route('/detail/{id}', name: 'sortie_detail')]
         public function afficherSortie(
         int              $id,
@@ -102,6 +105,7 @@ class CreationSortieController extends AbstractController
      * @param EntityManagerInterface $em
      * @return Response
      */
+    #[IsGranted('ROLE_USER_ACTIF')]
     #[Route('/modification/{id}', name:'sortie_modification')]
         public function modifierSortie(
         Sortie                  $sortie,
@@ -160,6 +164,7 @@ class CreationSortieController extends AbstractController
      * @return Response
      *
      */
+    #[IsGranted('ROLE_USER_ACTIF')]
     #[Route('/annulation/{id}', name:'sortie_annulation')]
         public function annulationSortie(
         Sortie                  $sortie,

@@ -10,10 +10,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/profil', name: 'profil')]
 class ProfilController extends AbstractController
 {
+    #[IsGranted('ROLE_USER_ACTIF')]
     #[Route('/details/{id}', name: '_details', requirements: ['id' => '\d+'])]
     public function details(
         int $id,
@@ -31,7 +33,7 @@ class ProfilController extends AbstractController
         );
         }
     }
-
+    #[IsGranted('ROLE_USER_ACTIF')]
     #[Route('/modif', name: '_modif')]
     public function modif(
         UserRepository $userRepository,

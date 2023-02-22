@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 //#[Route('/', name: 'main')]
 class MainController extends AbstractController
@@ -22,6 +23,7 @@ class MainController extends AbstractController
      * @param SiteRepository $siteRepository
      * @return Response
      */
+    #[IsGranted('ROLE_USER_ACTIF')]
     #[Route('/sorties', name: '_sorties')]
     public function sorties(SortieRepository $sortieRepository, SiteRepository $siteRepository) : Response
     {
@@ -39,6 +41,7 @@ class MainController extends AbstractController
      * @param SiteRepository $siteRepository
      * @return Response
      */
+    #[IsGranted('ROLE_USER_ACTIF')]
     #[Route('/tri', name: '_tri')]
     public function sortiesTriees (Request $request, SortieRepository $sortieRepository, SiteRepository $siteRepository): Response
     {

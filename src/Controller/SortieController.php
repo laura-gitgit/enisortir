@@ -8,9 +8,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class SortieController extends AbstractController
 {
+    #[IsGranted('ROLE_USER_ACTIF')]
     #[Route('/inscription/{id}', name: '_inscriptionSortie')]
     public function inscriptionSortie($id, SiteRepository $siteRepository, SortieRepository $sortieRepository, EntityManagerInterface $em): Response
     {
@@ -31,7 +33,7 @@ class SortieController extends AbstractController
         $this->addFlash('success', 'Vous êtes bien inscris sur la sortie : '.$sortie->getNom());
         return $this->redirectToRoute('_sorties');
     }
-
+    #[IsGranted('ROLE_USER_ACTIF')]
     #[Route('/desinscription/{id}', name: '_desinscriptionSortie')]
     public function desinscriptionSortie($id, SiteRepository $siteRepository, SortieRepository $sortieRepository, EntityManagerInterface $em): Response
     {
