@@ -34,7 +34,7 @@ class ResetPasswordController extends AbstractController
     /**
      * Display & process form to request a password reset.
      */
-    #[IsGranted('ROLE_USER_ACTIF')]
+    #[IsGranted('ROLE_USERACTIF')]
     #[Route('', name: 'app_forgot_password_request')]
     public function request(Request $request, MailerInterface $mailer): Response
     {
@@ -56,7 +56,7 @@ class ResetPasswordController extends AbstractController
     /**
      * Confirmation page after a user has requested a password reset.
      */
-    #[IsGranted('ROLE_USER_ACTIF')]
+    #[IsGranted('ROLE_USERACTIF')]
     #[Route('/check-email', name: 'app_check_email')]
     public function checkEmail(): Response
     {
