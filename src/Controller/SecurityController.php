@@ -24,7 +24,7 @@ class SecurityController extends AbstractController
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
-    #[IsGranted('ROLE_USER_ACTIF')]
+    #[IsGranted('ROLE_USERACTIF')]
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
     {

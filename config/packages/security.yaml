@@ -36,11 +36,11 @@ security:
     access_control:
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/profile, roles: ROLE_USER }
-         -
+
     role_hierarchy:
 
         ROLE_USER_ACITF: ROLE_USER
-        ROLE_ADMIN: ROLE_USER_ACTIF
+        ROLE_ADMIN: ROLE_USERACTIF
 
 when@test:
     security:
