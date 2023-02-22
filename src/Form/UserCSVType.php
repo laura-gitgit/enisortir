@@ -27,7 +27,8 @@ class UserCSVType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Importer'
-            ]);
+            ])
+        ->setAttributes(['enctype'=>'multipart/form-data']);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
