@@ -13,6 +13,7 @@ use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,24 +21,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CreationSortieController extends AbstractController
 {
-
-    /**
-     * @param Sortie|null $sortieBase
-     * @param Sortie|null $sortie
-     * @return void
-     */
-    public function extracted(?Sortie $sortieBase, ?Sortie $sortie): void
-    {
-        $sortieBase->setSite($sortie->getSite());
-        $sortieBase->setNom($sortie->getNom());
-        $sortieBase->setDateHeureDebut($sortie->getDateHeureDebut());
-        $sortieBase->setDuree($sortie->getDuree());
-        $sortieBase->setDateLimiteInscription($sortie->getDateLimiteInscription());
-        $sortieBase->setNbInscriptionsMax($sortie->getNbInscriptionsMax());
-        $sortieBase->setInfosSortie($sortie->getInfosSortie());
-        $sortieBase->setOrganisateur($sortie->getOrganisateur());
-    }
-
 
     /**
      * @param EntityManagerInterface $em
@@ -54,6 +37,7 @@ class CreationSortieController extends AbstractController
     {
         $sortie = new Sortie();
         $sortie->setDateHeureDebut(new \DateTime());
+        /** @var ?User $user */
         $user = $this->getUser();
         $sortie->setOrganisateur($user);
         $sortie->setSite($user->getSite());
@@ -66,7 +50,7 @@ class CreationSortieController extends AbstractController
             if (isset($request->get('sortie_form')['Enregistrer']))
             {
                 try{
-                $sortie->setEtat($etatRepository->findOneBy(['id' => 1]));
+                $sortie->setEtat($etatRepository->find( 1));
                 $em->persist($sortie);
                 $em->flush();
 
@@ -79,7 +63,7 @@ class CreationSortieController extends AbstractController
             } else if ( isset($request->get('sortie_form')['Publier'])){
 
                 try{
-                $sortie->setEtat($etatRepository->findOneBy(['id' => 2]));
+                $sortie->setEtat($etatRepository->find(2));
                 $em->persist($sortie);
                 $em->flush();
                 $this->addFlash('success', 'La Sortie est publiée.');
@@ -111,57 +95,50 @@ class CreationSortieController extends AbstractController
                 compact('sortie')
             );
 }
+
     /**
-     * @param int $id
-     * @param EtatRepository $etatRepository
-     * @param SortieRepository $sortieRepository
+     * @param Sortie $sortie
      * @param Request $request
      * @param EntityManagerInterface $em
      * @return Response
      */
     #[Route('/modification/{id}', name:'sortie_modification')]
         public function modifierSortie(
-        int                     $id,
-        EtatRepository          $etatRepository,
-        SortieRepository        $sortieRepository,
+        Sortie                  $sortie,
         Request                 $request,
         EntityManagerInterface  $em,
         ):Response
         {
-            $sortieBase =$sortieRepository->findOneBy(['id'=>$id]);
-            $sortie=$sortieBase;
             $modifierSortie = $this->createForm(ModifierSortieType::class, $sortie);
             $modifierSortie->handleRequest($request);
 
              if ($modifierSortie->isSubmitted()&& $modifierSortie->isValid()) {
+                 $etatRepository=$em->getRepository(Etat::class);
 
-                 $this->extracted($sortieBase, $sortie);
+                 /** @var Form $modifierSortie */
+                 switch ($modifierSortie->getClickedButton()->getName()){
 
-                 switch ($request->get('modifier_sortie')!=null){
-
-                     case (isset($request->get('modifier_sortie')['Enregistrer'])):
+                     case 'Enregistrer':
                     try{
-                     $sortieBase->setEtat($etatRepository->findOneBy(['id' => 1]));
-                     $em->persist($sortieBase);
+                     $sortie->setEtat($etatRepository->find( 1));
                      $this->addFlash('success', 'La Sortie est modifiée et crée.');
                      }catch (\Exception $exception){
                         dd($exception->getMessage());
                     }
                     break;
 
-                     case (isset($request->get('modifier_sortie')['Publier'])):
+                     case'Publier':
                      try{
-                     $sortie->setEtat($etatRepository->findOneBy(['id' => 2]));
-                     $em->persist($sortieBase);
+                     $sortie->setEtat($etatRepository->find(2));
                      $this->addFlash('success', 'La Sortie est modifiée et Publiée.');
                      }catch(\Exception $exception){
                          dd($exception->getMessage());
                      }
                      break;
 
-                     case (isset($request->get('modifier_sortie')['Supprimer'])):
+                     case 'Supprimer':
                       try{
-                     $em->remove($sortieBase);
+                     $em->remove($sortie);
                      $this->addFlash('success', 'La Sortie est supprimée.');
                       }catch (\Exception $exception){
                           dd($exception->getMessage());
@@ -177,57 +154,38 @@ class CreationSortieController extends AbstractController
 }
 
     /**
-     * @param int $id
-     * @param SortieRepository $sortieRepository
+     * @param Sortie $sortie
      * @param EntityManagerInterface $em
      * @param Request $request
-     * @param EtatRepository $etatRepository
      * @return Response
+     *
      */
     #[Route('/annulation/{id}', name:'sortie_annulation')]
         public function annulationSortie(
-        int                     $id,
-        SortieRepository        $sortieRepository,
+        Sortie                  $sortie,
         EntityManagerInterface  $em,
         Request                 $request,
-        EtatRepository          $etatRepository
+
         ):Response
         {
-
-        $sortieBase =$sortieRepository->findOneBy(['id'=>$id]);
-        $sortie=$sortieBase;
         $annulationSortie = $this->createForm(AnnulationType::class,$sortie );
         $annulationSortie->handleRequest($request);
 
 
         if($annulationSortie->isSubmitted() && $annulationSortie->isValid())
         {
-            $this->extracted($sortieBase, $sortie);
-
-            if (isset($request->get('annulation')['Enregistrer']))
-            {
-
                 try{
-                    $sortieBase->setEtat($etatRepository->findOneBy(['id' => 6]));
-
-                    $em->persist($sortieBase);
+                    $etatRepository=$em->getRepository(Etat::class);
+                    $sortie->setEtat($etatRepository->find(6));
                     $em->flush();
                     $this->addFlash('success', 'La Sortie est annuléé.');
-
                 }catch (\Exception $exception){
                     dd($exception->getMessage());
                 }
                 return $this->redirectToRoute('_sorties');
-
-            }else{
-                return $this->redirectToRoute('_sorties');
-            }
         }
         return $this->render('sortie_annulation.html.twig',
         compact('annulationSortie')
         );
-
     }
-
-
 }
