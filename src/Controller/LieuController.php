@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class LieuController extends AbstractController
 {
@@ -18,7 +19,8 @@ class LieuController extends AbstractController
      * @param Request $request
      * @param EntityManagerInterface $em
      * @return Response
-     */
+     **/
+    #[IsGranted('ROLE_USER_ACTIF')]
     #[Route('/lieu/ajout', name: 'lieu_ajoutLieu')]
     public function ajoutLieu(Request $request, EntityManagerInterface $em, VilleRepository $villeRepository): Response
     {
