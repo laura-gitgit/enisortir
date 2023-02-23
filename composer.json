@@ -84,6 +84,7 @@
         }
     },
     "require-dev": {
+        "phpstan/phpstan": "^1.10",
         "symfony/debug-bundle": "6.2.*",
         "symfony/maker-bundle": "^1.48",
         "symfony/stopwatch": "6.2.*",

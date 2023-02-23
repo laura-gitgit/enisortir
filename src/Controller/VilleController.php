@@ -21,10 +21,10 @@ class VilleController extends AbstractController
         $villeForm = $this->createForm(AjoutVilleType::class, $ville);
         $villeForm->handleRequest($request);
 
-        if($villeForm->isSubmitted() && $villeForm->isValid()){
+        if ($villeForm->isSubmitted() && $villeForm->isValid()) {
             try {
                 $em->persist($ville);
-            } catch (\Exception $exception){
+            } catch (\Exception $exception) {
                 dd($exception->getMessage());
             }
         }

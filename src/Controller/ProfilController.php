@@ -18,53 +18,49 @@ class ProfilController extends AbstractController
   #[IsGranted('ROLE_USER')]
     #[Route('/details/{id}', name: '_details', requirements: ['id' => '\d+'])]
     public function details(
-        int $id,
+        int            $id,
         UserRepository $userRepository
     ): Response
     {
         $user = $this->getUser();
         $profil = $userRepository->findOneBy(["id" => $id]);
-        if ($user->getUserIdentifier() === $profil->getUserIdentifier()){
+
+        if ($user->getUserIdentifier() === $profil->getUserIdentifier()) {
             return $this->redirectToRoute('profil_modif');
-        }else{
-        return $this->render(
-            'profil/details.html.twig',
-            compact('profil')
-        );
+        } else {
+            return $this->render(
+                'profil/details.html.twig',
+                compact('profil')
+            );
         }
     }
+
     #[IsGranted('ROLE_USER')]
     #[Route('/modif', name: '_modif')]
     public function modif(
-        UserRepository $userRepository,
-        EntityManagerInterface $em,
-        Request $request,
+        UserRepository              $userRepository,
+        EntityManagerInterface      $em,
+        Request                     $request,
         UserPasswordHasherInterface $passwordEncoder
 
     ): Response
     {
         $user = $this->getUser();
-        if (!$user){
+        if (!$user) {
             return $this->redirectToRoute('app_login');
-        }else{
+        } else {
             $profil = $userRepository->findOneBy(["email" => $user->getUserIdentifier()]);
         }
 
         $profilForm = $this->createForm(ModifProfilType::class, $profil);
         $profilForm->handleRequest($request);
 
-        if ($profilForm->isSubmitted() && $profilForm->isValid()){
-
-//            if (!$passwordEncoder->isPasswordValid($profil, $profilForm->get('password')->getData()))
-//            {
-//                $this->addFlash('danger', 'Le mot de passe actuel est incorrect.');
-//                return $this->redirectToRoute('profil_modif');
-//            }
-           $newPassword = $profilForm->get('password')['first']->getData();
-            if ($newPassword === null){
+        if ($profilForm->isSubmitted() && $profilForm->isValid()) {
+            $newPassword = $profilForm->get('password')['first']->getData();
+            if ($newPassword === null) {
                 $newPassword = $profil->getPassword();
                 $profil->setPassword($newPassword);
-            }else {
+            } else {
                 $hashedPassword = $passwordEncoder->hashPassword($profil, $newPassword);
                 $profil->setPassword($hashedPassword);
             }

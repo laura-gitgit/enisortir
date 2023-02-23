@@ -24,9 +24,9 @@ class ModifProfilType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class,
-            [
-                'label' => 'Email'
-            ])
+                [
+                    'label' => 'Email'
+                ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'required' => false,
@@ -47,12 +47,12 @@ class ModifProfilType extends AbstractType
                     ])
                 ]
             ])
-            ->add('nom',TextType::class, ['label' => 'Nom'])
-            ->add('prenom',TextType::class, ['label'=>'Prénom'])
+            ->add('nom', TextType::class, ['label' => 'Nom'])
+            ->add('prenom', TextType::class, ['label' => 'Prénom'])
             ->add('telephone', TelType::class,
-            [
-                'label' => 'Téléphone'
-            ])
+                [
+                    'label' => 'Téléphone'
+                ])
             ->add('pseudo', TextType::class, ['label' => 'Pseudo'])
             ->add('site', EntityType::class, [
                 'class' => Site::class,
@@ -75,8 +75,7 @@ class ModifProfilType extends AbstractType
                     ])
                 ]
 
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

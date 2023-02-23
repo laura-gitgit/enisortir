@@ -2,13 +2,13 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Sortie;
+use App\Entity\Ville;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class SortieCrudController extends AbstractCrudController
+class VilleCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Sortie::class;
+        return Ville::class;
     }
 }
