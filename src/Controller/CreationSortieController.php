@@ -30,7 +30,7 @@ class CreationSortieController extends AbstractController
      * @param EtatRepository $etatRepository
      * @return Response
      */
-    #[IsGranted('ROLE_USERACTIF')]
+    #[IsGranted('ROLE_USER')]
     #[Route('/creation', name: 'sortie_creation')]
         public function create(
         EntityManagerInterface $em,
@@ -84,7 +84,7 @@ class CreationSortieController extends AbstractController
      * @param SortieRepository $sortieRepository
      * @return Response
      */
-    #[IsGranted('ROLE_USERACTIF')]
+    #[IsGranted('ROLE_USER')]
     #[Route('/detail/{id}', name: 'sortie_detail')]
         public function afficherSortie(
         int              $id,
@@ -102,7 +102,7 @@ class CreationSortieController extends AbstractController
      * @param EntityManagerInterface $em
      * @return Response
      */
-    #[IsGranted('ROLE_USERACTIF')]
+   #[IsGranted('ROLE_USER')]
     #[Route('/modification/{id}', name:'sortie_modification')]
         public function modifierSortie(
         Sortie                  $sortie,
@@ -161,7 +161,7 @@ class CreationSortieController extends AbstractController
      * @return Response
      *
      */
-    #[IsGranted('ROLE_USERACTIF')]
+    #[IsGranted('ROLE_USER')]
     #[Route('/annulation/{id}', name:'sortie_annulation')]
         public function annulationSortie(
         Sortie                  $sortie,

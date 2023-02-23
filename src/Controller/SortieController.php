@@ -12,14 +12,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class SortieController extends AbstractController
 {
-    /**
-     * @param $id
-     * @param SiteRepository $siteRepository
-     * @param SortieRepository $sortieRepository
-     * @param EntityManagerInterface $em
-     * @return Response
-     */
-    #[IsGranted('ROLE_USERACTIF')]
+    #[IsGranted('ROLE_USER')]
     #[Route('/inscription/{id}', name: '_inscriptionSortie')]
     public function inscriptionSortie($id, SiteRepository $siteRepository, SortieRepository $sortieRepository, EntityManagerInterface $em): Response
     {
@@ -41,14 +34,7 @@ class SortieController extends AbstractController
         return $this->redirectToRoute('_sorties');
     }
 
-    /**
-     * @param $id
-     * @param SiteRepository $siteRepository
-     * @param SortieRepository $sortieRepository
-     * @param EntityManagerInterface $em
-     * @return Response
-     */
-    #[IsGranted('ROLE_USERACTIF')]
+    #[IsGranted('ROLE_USER')]
     #[Route('/desinscription/{id}', name: '_desinscriptionSortie')]
     public function desinscriptionSortie($id, SiteRepository $siteRepository, SortieRepository $sortieRepository, EntityManagerInterface $em): Response
     {
