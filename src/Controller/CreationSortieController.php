@@ -24,7 +24,6 @@ class CreationSortieController extends AbstractController
     /**
      * @param EntityManagerInterface $em
      * @param Request $request
-     * @param EtatRepository $etatRepository
      * @return Response
      */
     #[IsGranted('ROLE_USER')]
@@ -32,7 +31,6 @@ class CreationSortieController extends AbstractController
         public function create(
         EntityManagerInterface $em,
         Request                $request,
-        EtatRepository         $etatRepository
      ): Response
     {
         $sortie = new Sortie();
@@ -46,6 +44,8 @@ class CreationSortieController extends AbstractController
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid())
         {
+            $etatRepository=$em->getRepository(Etat::class);
+
             if (isset($request->get('sortie_form')['Enregistrer']))
             {
                 try{
@@ -76,19 +76,17 @@ class CreationSortieController extends AbstractController
             compact('sortieForm')
         );
     }
+
     /**
-     * @param int $id
-     * @param SortieRepository $sortieRepository
+     * @param Sortie $sortie
      * @return Response
      */
     #[IsGranted('ROLE_USER')]
     #[Route('/detail/{id}', name: 'sortie_detail')]
         public function afficherSortie(
-        int              $id,
-        SortieRepository $sortieRepository
+        Sortie $sortie
         ):Response
         {
-            $sortie =$sortieRepository->findOneBy(['id'=>$id]);
             return $this->render('sortie/detail.html.twig',
                 compact('sortie')
             );
@@ -113,7 +111,7 @@ class CreationSortieController extends AbstractController
              if ($modifierSortie->isSubmitted()&& $modifierSortie->isValid()) {
                  $etatRepository=$em->getRepository(Etat::class);
 
-                 /** @var Form $modifierSortie */
+                /** @var Form $modifierSortie */
                  switch ($modifierSortie->getClickedButton()->getName()){
 
                      case 'Enregistrer':
