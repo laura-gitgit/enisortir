@@ -17,7 +17,9 @@
         <div class="crea">{{ form_row(profilForm.site) }}</div>
         <button>Enregistrer</button>
         {{ form_end(profilForm) }}
-        <a href="{{ path('_sorties') }}"><button>Annuler</button></a>
+        <a href="{{ path('_sorties') }}">
+            <button>Annuler</button>
+        </a>
     </div>
 
 {% endblock %}

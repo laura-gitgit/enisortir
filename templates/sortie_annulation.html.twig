@@ -7,12 +7,12 @@
 
 {% block body %}
 
-<div class="crea">
-<h2>Annuler une sortie</h2>
+    <div class="crea">
+        <h2>Annuler une sortie</h2>
 
         {{ form_start(annulationSortie) }}
 
-        <div class="crea">{{ form_row(annulationSortie.nom)}}</div>
+        <div class="crea">{{ form_row(annulationSortie.nom) }}</div>
         <div class="crea">{{ form_row(annulationSortie.dateHeureDebut) }}</div>
         <div class="crea">{{ form_row(annulationSortie.duree) }}</div>
         <div class="crea">{{ form_row(annulationSortie.dateLimiteInscription) }}</div>
@@ -24,6 +24,6 @@
 
         {{ form_end(annulationSortie) }}
 
-        </div>
+    </div>
 {% endblock %}
 

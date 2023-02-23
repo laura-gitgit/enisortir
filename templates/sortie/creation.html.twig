@@ -4,9 +4,9 @@
 
     <div class="crea">
     <h2>Ajouter une sortie</h2>
-        {{ form_start(sortieForm) }}
+    {{ form_start(sortieForm) }}
 
-    <div class="crea">Nom de la sortie : {{ form_widget(sortieForm.nom)  }}</div>
+    <div class="crea">Nom de la sortie : {{ form_widget(sortieForm.nom) }}</div>
     <div class="crea">Date et heure de la sortie : {{ form_widget(sortieForm.dateHeureDebut) }}</div>
     <div class="crea">Date limite d'inscription : <br>{{ form_widget(sortieForm.dateLimiteInscription) }}</div>
     <div class="crea">Nombre de places : {{ form_widget(sortieForm.nbInscriptionsMax) }}</div>
@@ -16,9 +16,9 @@
 
     <div class="crea">Ville organisatrice : {{ form_widget(sortieForm.lieu) }}
         <a href="{{ path('lieu_ajoutLieu') }}"> Ajouter
-    <div class="crea">{{  form_widget(sortieForm.Enregistrer)}}</div>
-    <div class="crea">{{  form_widget(sortieForm.Publier)}}</div>
+            <div class="crea">{{ form_widget(sortieForm.Enregistrer) }}</div>
+            <div class="crea">{{ form_widget(sortieForm.Publier) }}</div>
 
-        {{ form_end(sortieForm) }}
+            {{ form_end(sortieForm) }}
     </div>
 {% endblock %}
