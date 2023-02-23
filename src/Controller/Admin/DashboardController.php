@@ -40,6 +40,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Utilisateurs');
         yield MenuItem::linkToCrud('Afficher les utilisateurs', 'fas fa-eye', User::class);
         yield MenuItem::linkToCrud('Ajouter un utilisateur', 'fas fa-plus', User::class)->setAction(Crud::PAGE_NEW);
+        yield MenuItem::linkToRoute('Ajout d\'utilisateur avec fichier CSV', 'fas fa-file-lines', '_fichierCSV');
 
         yield MenuItem::section('Sorties');
         yield MenuItem::linkToCrud('Afficher les sorties', 'fas fa-eye', Sortie::class);
