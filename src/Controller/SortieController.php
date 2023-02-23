@@ -21,7 +21,7 @@ class SortieController extends AbstractController
      */
     #[IsGranted('ROLE_USER')]
     #[Route('/inscription/{id}', name: '_inscriptionSortie')]
-    public function inscriptionSortie($id, SiteRepository $siteRepository, SortieRepository $sortieRepository, EntityManagerInterface $em): Response
+    public function inscriptionSortie($id, SortieRepository $sortieRepository, EntityManagerInterface $em): Response
     {
         $userConnecte = $this->getUser();
         $sortie = $sortieRepository->findOneBy(['id' => $id]);
@@ -50,11 +50,10 @@ class SortieController extends AbstractController
      */
     #[IsGranted('ROLE_USER')]
     #[Route('/desinscription/{id}', name: '_desinscriptionSortie')]
-    public function desinscriptionSortie($id, SiteRepository $siteRepository, SortieRepository $sortieRepository, EntityManagerInterface $em): Response
+    public function desinscriptionSortie($id, SortieRepository $sortieRepository, EntityManagerInterface $em): Response
     {
         $userConnecte = $this->getUser();
         $sortie = $sortieRepository->findOneBy(['id' => $id]);
-
         $sortie->removeParticipant($userConnecte);
 
         try {
