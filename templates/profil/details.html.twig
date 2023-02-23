@@ -3,10 +3,12 @@
 {% endblock %}
     {% block body %}
 
+        <div>
+            <img src="{{ asset('images/avatar/'~user.image) }}" alt="" class="img-crea">
+        </div>
+
         <div class="crea">
             <h2>{{ user.pseudo }}</h2>
-
-            <img src="{{ asset('images/avatar/'~user.image) }}" alt="" height="150" width="150">
 
             <div class="crea">Prénom : {{ user.prenom }}</div>
             <div class="crea">Nom : {{ user.nom }}</div>

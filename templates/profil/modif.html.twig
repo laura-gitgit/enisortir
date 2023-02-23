@@ -3,9 +3,16 @@
 
 {% endblock %}
 {% block body %}
+
     <div class="crea">
         <h2>Mon profil</h2>
-        <img src="{{ asset('images/avatar/'~profil.image) }}" alt="" height="150" width="150">
+    </div>
+
+    <div>
+        <img src="{{ asset('images/avatar/'~profil.image) }}" alt="" class="img-crea">
+    </div>
+
+    <div class="crea">
         {{ form_start(profilForm) }}
         <div class="crea">{{ form_row(profilForm.pseudo) }}</div>
         <div class="crea">{{ form_row(profilForm.prenom) }}</div>
@@ -15,10 +22,10 @@
         <div class="crea">{{ form_row(profilForm.password) }}</div>
         <div class="crea"> {{ form_row(profilForm.imageFile) }}</div>
         <div class="crea">{{ form_row(profilForm.site) }}</div>
-        <button>Enregistrer</button>
+        <button class="bouton-crea">Enregistrer</button>
         {{ form_end(profilForm) }}
         <a href="{{ path('_sorties') }}">
-            <button>Annuler</button>
+            <button class="bouton-crea">Annuler</button>
         </a>
     </div>
 
