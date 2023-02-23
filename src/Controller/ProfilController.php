@@ -15,6 +15,12 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/profil', name: 'profil')]
 class ProfilController extends AbstractController
 {
+
+    /**
+     * @param int $id
+     * @param UserRepository $userRepository
+     * @return Response
+     */
   #[IsGranted('ROLE_USER')]
     #[Route('/details/{id}', name: '_details', requirements: ['id' => '\d+'])]
     public function details(
@@ -35,6 +41,13 @@ class ProfilController extends AbstractController
         }
     }
 
+    /**
+     * @param UserRepository $userRepository
+     * @param EntityManagerInterface $em
+     * @param Request $request
+     * @param UserPasswordHasherInterface $passwordEncoder
+     * @return Response
+     */
     #[IsGranted('ROLE_USER')]
     #[Route('/modif', name: '_modif')]
     public function modif(

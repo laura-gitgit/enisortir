@@ -10,16 +10,13 @@ use App\Form\ModifierSortieType;
 use App\Form\SortieFormType;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use function Symfony\Component\String\u;
 
 class CreationSortieController extends AbstractController
 {
@@ -84,7 +81,6 @@ class CreationSortieController extends AbstractController
      * @param SortieRepository $sortieRepository
      * @return Response
      */
-
     #[IsGranted('ROLE_USER')]
     #[Route('/detail/{id}', name: 'sortie_detail')]
         public function afficherSortie(

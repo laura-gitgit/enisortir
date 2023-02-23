@@ -13,6 +13,11 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class VilleController extends AbstractController
 {
+    /**
+     * @param EntityManagerInterface $em
+     * @param Request $request
+     * @return Response
+     */
     #[IsGranted('ROLE_USER')]
     #[Route('/ville/ajout', name: '_ajoutVille')]
     public function ajoutVille(EntityManagerInterface $em, Request $request): Response

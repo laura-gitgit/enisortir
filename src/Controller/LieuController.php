@@ -17,6 +17,7 @@ class LieuController extends AbstractController
     /**
      * @param Request $request
      * @param EntityManagerInterface $em
+     * @param VilleRepository $villeRepository
      * @return Response
      **/
     #[IsGranted('ROLE_USER')]
