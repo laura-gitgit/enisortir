@@ -26,7 +26,7 @@ class ProfilController extends AbstractController
         User $user,
     ): Response
     {
-        if ($user) {
+        if ($user === $this->getUser()) {
             return $this->redirectToRoute('profil_modif');
         } else {
             return $this->render(
