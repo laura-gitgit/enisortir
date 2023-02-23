@@ -165,6 +165,10 @@ class Sortie
         return $this->participants;
     }
 
+    /**
+     * @param User $participant
+     * @return $this
+     */
     public function addParticipant(User $participant): self
     {
         if (!$this->participants->contains($participant)) {
@@ -175,6 +179,10 @@ class Sortie
         return $this;
     }
 
+    /**
+     * @param User $participant
+     * @return $this
+     */
     public function removeParticipant(User $participant): self
     {
         if ($this->participants->removeElement($participant)) {

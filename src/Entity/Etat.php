@@ -51,25 +51,30 @@ class Etat
         return $this->sorties;
     }
 
+    /**
+     * @param sortie $sorty
+     * @return $this
+     */
     public function addSorty(sortie $sorty): self
     {
         if (!$this->sorties->contains($sorty)) {
             $this->sorties->add($sorty);
             $sorty->setEtat($this);
         }
-
         return $this;
     }
 
+    /**
+     * @param sortie $sorty
+     * @return $this
+     */
     public function removeSorty(sortie $sorty): self
     {
         if ($this->sorties->removeElement($sorty)) {
-            // set the owning side to null (unless already changed)
             if ($sorty->getEtat() === $this) {
                 $sorty->setEtat(null);
             }
         }
-
         return $this;
     }
 }

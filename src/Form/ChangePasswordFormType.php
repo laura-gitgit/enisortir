@@ -12,6 +12,11 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ChangePasswordFormType extends AbstractType
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -30,7 +35,6 @@ class ChangePasswordFormType extends AbstractType
                         new Length([
                             'min' => 6,
                             'minMessage' => 'Votre mot de passe doit faire au moins {{ limit }} caractères',
-                            // max length allowed by Symfony for security reasons
                             'max' => 4096,
                         ]),
                     ],
@@ -40,11 +44,8 @@ class ChangePasswordFormType extends AbstractType
                     'label' => 'Répéter nouveau mot de passe',
                 ],
                 'invalid_message' => 'Les mots de passe ne correspondent pas.',
-                // Instead of being set onto the object directly,
-                // this is read and encoded in the controller
                 'mapped' => false,
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

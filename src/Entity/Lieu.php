@@ -113,12 +113,10 @@ class Lieu
     public function removeSorty(sortie $sorty): self
     {
         if ($this->sorties->removeElement($sorty)) {
-            // set the owning side to null (unless already changed)
             if ($sorty->getLieu() === $this) {
                 $sorty->setLieu(null);
             }
         }
-
         return $this;
     }
 
@@ -130,7 +128,6 @@ class Lieu
     public function setVille(?Ville $ville): self
     {
         $this->ville = $ville;
-
         return $this;
     }
 }

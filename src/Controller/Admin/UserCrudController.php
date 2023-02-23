@@ -20,6 +20,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 class UserCrudController extends AbstractCrudController
 {
     private $entityManager;
+
     public function __construct(EntityManagerInterface $entityManager, public UserPasswordHasherInterface $userPasswordHasher)
     {
         $this->entityManager = $entityManager;
@@ -35,8 +36,7 @@ class UserCrudController extends AbstractCrudController
         return $actions
             ->add(Crud::PAGE_EDIT, Action::INDEX)
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
-            ->add(Crud::PAGE_EDIT, Action::DETAIL)
-            ;
+            ->add(Crud::PAGE_EDIT, Action::DETAIL);
     }
 
     public function configureFields(string $pageName): iterable
@@ -52,17 +52,17 @@ class UserCrudController extends AbstractCrudController
             AssociationField::new('site'),
         ];
 
-            $password = TextField::new('password')
-                ->setFormType(RepeatedType::class)
-                ->setFormTypeOptions([
-                    'type' => PasswordType::class,
-                    'first_options' => ['label' => 'Mot de passe'],
-                    'second_options' => ['label' => 'Confirmation du mot de passe.'],
-                    'mapped' => false,
-                ])
-                ->setRequired($pageName === Crud::PAGE_NEW)
-                ->onlyOnForms();
-            $fields[] = $password;
+        $password = TextField::new('password')
+            ->setFormType(RepeatedType::class)
+            ->setFormTypeOptions([
+                'type' => PasswordType::class,
+                'first_options' => ['label' => 'Mot de passe'],
+                'second_options' => ['label' => 'Confirmation du mot de passe.'],
+                'mapped' => false,
+            ])
+            ->setRequired($pageName === Crud::PAGE_NEW)
+            ->onlyOnForms();
+        $fields[] = $password;
         return $fields;
     }
 
@@ -85,19 +85,19 @@ class UserCrudController extends AbstractCrudController
 
     private function hashPassword(): \Closure
     {
-        return function ($event){
+        return function ($event) {
             $form = $event->getForm();
-            if (!$form->isValid()){
+            if (!$form->isValid()) {
                 return;
             }
             $password = $form->get('password')->getData();
-            if ($password === null){
+            if ($password === null) {
                 return;
             }
 
-            $user =$this->getUser();
+            $user = $this->getUser();
 
-            if($user === null) {
+            if ($user === null) {
                 return;
             }
 

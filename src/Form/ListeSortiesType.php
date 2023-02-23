@@ -14,18 +14,8 @@ class ListeSortiesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-//            ->add('nom')
-//            ->add('dateHeureDebut')
-//            ->add('duree')
-//            ->add('dateLimiteInscription')
-//            ->add('nbInscriptionsMax')
-//            ->add('infosSortie')
-//            ->add('participants')
-//            ->add('organisteur')
             ->add('site', EntityType::class,
             ["class" => Site::class, "choice_label" => "nom"])
-//            ->add('etat')
-//            ->add('lieu')
         ;
     }
 

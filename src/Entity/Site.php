@@ -55,16 +55,23 @@ class Site
         return $this->participants;
     }
 
+    /**
+     * @param user $participant
+     * @return $this
+     */
     public function addParticipant(user $participant): self
     {
         if (!$this->participants->contains($participant)) {
             $this->participants->add($participant);
             $participant->setSite($this);
         }
-
         return $this;
     }
 
+    /**
+     * @param user $participant
+     * @return $this
+     */
     public function removeParticipant(user $participant): self
     {
         if ($this->participants->removeElement($participant)) {
@@ -73,7 +80,6 @@ class Site
                 $participant->setSite(null);
             }
         }
-
         return $this;
     }
 
@@ -91,7 +97,6 @@ class Site
             $this->sorties->add($sorty);
             $sorty->setSite($this);
         }
-
         return $this;
     }
 
@@ -103,7 +108,6 @@ class Site
                 $sorty->setSite(null);
             }
         }
-
         return $this;
     }
 

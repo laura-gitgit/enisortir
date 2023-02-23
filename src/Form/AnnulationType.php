@@ -16,42 +16,42 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AnnulationType extends AbstractType
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom',TextType::class, [
-        'disabled' => true
-    ])
+            ->add('nom', TextType::class, [
+                'disabled' => true
+            ])
             ->add('dateHeureDebut', DateTimeType::class,
                 [
-                    'html5'=>true,
-                    'widget'=> 'single_text',
+                    'html5' => true,
+                    'widget' => 'single_text',
                     'disabled' => true
                 ])
-            ->add('duree', TextType::class,[
-                'disabled'=> true,
+            ->add('duree', TextType::class, [
+                'disabled' => true,
 
             ])
             ->add('dateLimiteInscription', DateTimeType::class,
                 [
-                    'html5'=>true,
-                    'widget'=> 'single_text',
+                    'html5' => true,
+                    'widget' => 'single_text',
                     'disabled' => true
                 ])
-            ->add('nbInscriptionsMax',IntegerType::class,[
+            ->add('nbInscriptionsMax', IntegerType::class, [
+                'disabled' => true
+            ])
+            ->add('lieu', EntityType::class,
+                ["class" => Lieu::class, "choice_label" => "nom",
                     'disabled' => true
                 ])
-
-            ->add('lieu',EntityType::class,
-                ["class" => Lieu::class, "choice_label"=>"nom",
-                    'disabled' => true
-                    ])
-
-            ->add('infosSortie',TextareaType::class)
-
-            ->add('Enregistrer', SubmitType::class, ['attr' => ['value' => 'Enregistrer']])
-
-        ;
+            ->add('infosSortie', TextareaType::class)
+            ->add('Enregistrer', SubmitType::class, ['attr' => ['value' => 'Enregistrer']]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

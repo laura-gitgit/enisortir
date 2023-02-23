@@ -15,7 +15,6 @@ class VilleFormType extends AbstractType
         $builder
             ->add('ville', EntityType::class,
                 ["class" => Ville::class, "choice_label" => "nom"])
-
         ;
     }
 

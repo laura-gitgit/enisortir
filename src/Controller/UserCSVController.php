@@ -16,29 +16,33 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserCSVController extends AbstractController
 {
+    /**
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param SiteRepository $siteRepository
+     * @param UserPasswordHasherInterface $passwordHasher
+     * @return Response
+     */
     #[Route('/user', name: '_fichierCSV')]
     public function fichierCSV(
-        Request $request,
-        EntityManagerInterface $em,
-        SiteRepository $siteRepository,
+        Request                     $request,
+        EntityManagerInterface      $em,
+        SiteRepository              $siteRepository,
         UserPasswordHasherInterface $passwordHasher): Response
     {
         $userCSVForm = $this->createForm(UserCSVType::class);
         $userCSVForm->handleRequest($request);
 
-        if ($userCSVForm->isSubmitted() ) {
+        if ($userCSVForm->isSubmitted()) {
             $csvFile = $userCSVForm['fichier']->getData();
-
             $spreadsheet = IOFactory::load($csvFile);
-
             $feuilleCsv = $spreadsheet->getActiveSheet();
 
             $tabUsers = $feuilleCsv->toArray(true, true, true, true);
             $users = new ArrayCollection();
 
             foreach ($tabUsers as $cle => $utilisateur) {
-                if($cle == 1)
-                {
+                if ($cle == 1) {
                     continue;
                 }
                 $site = $siteRepository->find($utilisateur['F']);
@@ -49,7 +53,6 @@ class UserCSVController extends AbstractController
                 $newUser->setNom($utilisateur['C']);
                 $newUser->setPrenom($utilisateur['D']);
                 $newUser->setTelephone($utilisateur['E']);
-
                 $newUser->setActif(true);
                 $newUser->setAdministrateur(false);
                 $newUser->setUpdatedAt(new \DateTime('now'));
@@ -62,7 +65,7 @@ class UserCSVController extends AbstractController
                 $users->add($newUser);
             }
 
-            if($userCSVForm->isValid()){
+            if ($userCSVForm->isValid()) {
                 try {
                     foreach ($users as $user) {
                         $em->persist($user);

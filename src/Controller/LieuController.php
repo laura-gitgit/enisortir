@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Lieu;
-use App\Form\LieuNomType;
 use App\Form\LieuType;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,7 +34,6 @@ class LieuController extends AbstractController
             }catch (\Exception $exception){
                 dd($exception->getMessage());
             }
-
             $em->flush();
             $this->addFlash('success', 'Lieu ajouté avec succès');
             $this->redirectToRoute('sortie_creation');

@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use function Symfony\Component\String\u;
 
 class CreationSortieController extends AbstractController
 {
@@ -48,7 +49,6 @@ class CreationSortieController extends AbstractController
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid())
         {
-
             if (isset($request->get('sortie_form')['Enregistrer']))
             {
                 try{
@@ -63,7 +63,6 @@ class CreationSortieController extends AbstractController
                 return $this->redirectToRoute('_sorties');
 
             } else if ( isset($request->get('sortie_form')['Publier'])){
-
                 try{
                 $sortie->setEtat($etatRepository->find(2));
                 $em->persist($sortie);
@@ -76,7 +75,6 @@ class CreationSortieController extends AbstractController
             return $this->redirectToRoute('_sorties');
             }
         }
-
         return $this->render('sortie/creation.html.twig',
             compact('sortieForm')
         );
@@ -98,7 +96,6 @@ class CreationSortieController extends AbstractController
                 compact('sortie')
             );
 }
-
     /**
      * @param Sortie $sortie
      * @param Request $request
@@ -175,7 +172,6 @@ class CreationSortieController extends AbstractController
         {
         $annulationSortie = $this->createForm(AnnulationType::class,$sortie );
         $annulationSortie->handleRequest($request);
-
 
         if($annulationSortie->isSubmitted() && $annulationSortie->isValid())
         {

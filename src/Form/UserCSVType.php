@@ -2,12 +2,10 @@
 
 namespace App\Form;
 
-use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserCSVType extends AbstractType
 {
@@ -28,13 +26,6 @@ class UserCSVType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => 'Importer'
             ])
-        ->setAttributes(['enctype'=>'multipart/form-data']);
-    }
-
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-//            'data_class' => User::class,
-        ]);
+            ->setAttributes(['enctype' => 'multipart/form-data']);
     }
 }
