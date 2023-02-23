@@ -15,6 +15,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/profil', name: 'profil')]
 class ProfilController extends AbstractController
 {
+
     /**
      * @param int $id
      * @param UserRepository $userRepository

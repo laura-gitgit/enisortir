@@ -13,16 +13,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class UserCSVController extends AbstractController
 {
-    /**
-     * @param Request $request
-     * @param EntityManagerInterface $em
-     * @param SiteRepository $siteRepository
-     * @param UserPasswordHasherInterface $passwordHasher
-     * @return Response
-     */
+
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/user', name: '_fichierCSV')]
     public function fichierCSV(
         Request                     $request,

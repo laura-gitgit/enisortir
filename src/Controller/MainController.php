@@ -17,7 +17,7 @@ class MainController extends AbstractController
      * @param SiteRepository $siteRepository
      * @return Response
      */
-//    #[IsGranted('ROLE_USER_ACTIF')]
+  #[IsGranted('ROLE_USER')]
     #[Route('/sorties', name: '_sorties')]
     public function sorties(SortieRepository $sortieRepository, SiteRepository $siteRepository) : Response
     {
@@ -35,7 +35,7 @@ class MainController extends AbstractController
      * @param SiteRepository $siteRepository
      * @return Response
      */
-//    #[IsGranted('ROLE_USERACTIF')]
+   #[IsGranted('ROLE_USER')]
     #[Route('/tri', name: '_tri')]
     public function sortiesTriees (Request $request, SortieRepository $sortieRepository, SiteRepository $siteRepository): Response
     {
