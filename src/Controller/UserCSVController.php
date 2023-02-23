@@ -54,7 +54,7 @@ class UserCSVController extends AbstractController
                 $newUser->setAdministrateur(false);
                 $newUser->setUpdatedAt(new \DateTime('now'));
                 $newUser->setRoles(['ROLE_USER']);
-                $newUser->setPseudo(' ');
+                $newUser->setPseudo($utilisateur['G']);
 
                 $mdpHache = $passwordHasher->hashPassword($newUser, $utilisateur['B']);
                 $newUser->setPassword($mdpHache);
