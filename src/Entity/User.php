@@ -116,7 +116,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -125,7 +125,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -235,7 +234,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if (!$this->sorties->contains($sorty)) {
             $this->sorties->add($sorty);
         }
-
         return $this;
     }
 
@@ -267,7 +265,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeSortiesOrganisee(Sortie $sortiesOrganisee): self
     {
         if ($this->sortiesOrganisees->removeElement($sortiesOrganisee)) {
-            // set the owning side to null (unless already changed)
             if ($sortiesOrganisee->getOrganisteur() === $this) {
                 $sortiesOrganisee->setOrganisteur(null);
             }
@@ -316,7 +313,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->imageFile = $image;
 
-        if ($image){
+        if ($image) {
             $this->updatedAt = new \DateTime('now');
         }
     }
@@ -338,7 +335,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->updatedAt;
     }
 
-
+    /**
+     * permet de sérialiser l'image afin qu'elle soit cryptée en base de données
+     * @return array
+     */
     public function __serialize(): array
     {
         return [
@@ -361,6 +361,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         ];
     }
 
+    /**
+     * Permet de désérialiaser l'image pour décrypter l'image qui sort de la base de données
+     * @param array $serialized
+     * @return $this
+     */
     public function __unserialize(array $serialized)
     {
         $this->id = $serialized['id'];
@@ -371,7 +376,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->administrateur = $serialized['administrateur'];
         $this->site = $serialized['site'];
         $this->sorties = $serialized['sorties'];
-//        $this->sortiesOrganisees = $serialized['sortiesOrganisees'];
         $this->image = $serialized['image'];
         $this->updatedAt = $serialized['updatedAt'];
         $this->imageFile = base64_decode($serialized['imageFile']);

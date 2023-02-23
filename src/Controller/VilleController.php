@@ -13,6 +13,11 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class VilleController extends AbstractController
 {
+    /**
+     * @param EntityManagerInterface $em
+     * @param Request $request
+     * @return Response
+     */
     #[IsGranted('ROLE_USERACTIF')]
     #[Route('/ville/ajout', name: '_ajoutVille')]
     public function ajoutVille(EntityManagerInterface $em, Request $request): Response
@@ -21,10 +26,10 @@ class VilleController extends AbstractController
         $villeForm = $this->createForm(AjoutVilleType::class, $ville);
         $villeForm->handleRequest($request);
 
-        if($villeForm->isSubmitted() && $villeForm->isValid()){
+        if ($villeForm->isSubmitted() && $villeForm->isValid()) {
             try {
                 $em->persist($ville);
-            } catch (\Exception $exception){
+            } catch (\Exception $exception) {
                 dd($exception->getMessage());
             }
         }

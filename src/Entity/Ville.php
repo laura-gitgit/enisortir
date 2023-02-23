@@ -66,16 +66,23 @@ class Ville
         return $this->lieu;
     }
 
+    /**
+     * @param lieu $lieu
+     * @return $this
+     */
     public function addLieu(lieu $lieu): self
     {
         if (!$this->lieu->contains($lieu)) {
             $this->lieu->add($lieu);
             $lieu->setVille($this);
         }
-
         return $this;
     }
 
+    /**
+     * @param lieu $lieu
+     * @return $this
+     */
     public function removeLieu(lieu $lieu): self
     {
         if ($this->lieu->removeElement($lieu)) {
@@ -84,7 +91,6 @@ class Ville
                 $lieu->setVille(null);
             }
         }
-
         return $this;
     }
 }
