@@ -14,7 +14,7 @@ class SecurityController extends AbstractController
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
-    #[IsGranted('ROLE_USER')]
+//    #[IsGranted('ROLE_USER')]
     #[Route(path: '/', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {

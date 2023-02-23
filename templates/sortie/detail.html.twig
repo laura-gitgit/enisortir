@@ -7,36 +7,47 @@
 
 
 {% block body %}
-    <h2>{{ sortie.nom}}</h2>
-
     <div class="crea">
-    <p>{{ sortie.dateHeureDebut | date('Y-m-d')}}</p>
-    <p>{{ sortie.dateLimiteInscription  | date('Y-m-d') }}</p>
-    <p>{{ sortie.nbInscriptionsMax}}</p>
-    <p>{{ sortie.duree }}</p>
-    <p>{{ sortie.infosSortie }}</p>
+        <h2>{{ sortie.nom }}</h2>
     </div>
     <div class="crea">
-{# TO DO verifier  apparition et la creation       <p>{{ ville.nom }}<\p>#}
-        <p>{{sortie.lieu.nom}}</p>
-        <p>{{sortie.lieu.rue}}</p>
+        <p>Date de la sortie : {{ sortie.dateHeureDebut | date('Y-m-d') }}</p>
+        <p>Date limite d'inscripption : {{ sortie.dateLimiteInscription  | date('Y-m-d') }}</p>
+        <p>Nombre d'inscription max : {{ sortie.nbInscriptionsMax }}</p>
+        <p>Durée : {{ sortie.duree }} minutes</p>
+        <p>Détail : {{ sortie.infosSortie }}</p>
     </div>
-    <ul class="crea">
-        {% for user in sortie %}
-            <li>{{sortie.participants}} </p></li>
-        {% endfor %}
-    </ul>
     <div class="crea">
-    {% if app.user in sortie.participants %}
-        {% if sortie.participants | length < sortie.nbInscriptionsMax %}
-        <a href="{{ path('_desinscriptionSortie', {'id': sortie.id}) }}">
-            <input type="submit" value="Se désinscrire">
-        </a>
-            {%  endif %}
+        <p>Ville organisatrice :{{ sortie.site.nom }} </p>
+        <p>Lieu : {{ sortie.lieu.nom }}</p>
+        <p>Rue : {{ sortie.lieu.rue }}</p>
+        <p>Code Postal : {{ sortie.lieu.ville.codePostal }}</p>
+    </div>
+    <div class="crea-bouton">
+        {% if app.user in sortie.participants %}
+            {% if sortie.participants | length < sortie.nbInscriptionsMax %}
+                <a href="{{ path('_desinscriptionSortie', {'id': sortie.id}) }}">
+                    <input type="submit" value="Se désinscrire">
+                </a>
+            {% endif %}
         {% else %}
             <a href="{{ path('_inscriptionSortie', {'id': sortie.id}) }}">
                 <input type="submit" value="S'inscrire">
             </a>
-    {% endif %}
+        {% endif %}
+    </div>
+    <div class="listeParticipants">
+        <div class="boxer">
+            <div class="box-row-titre">
+                <p class="box">Pseudo</p>
+                <p class="box">Nom</p>
+            </div>
+            {% for user in sortie.participants %}
+                <div class="box-row">
+                    <div class="box">{{ user.pseudo }} </div>
+                    <div class="box">{{ user.prenom }} {{ user.nom }}</div>
+                </div>
+            {% endfor %}
         </div>
+    </div>
 {% endblock %}

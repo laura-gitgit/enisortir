@@ -56,6 +56,15 @@
     font-family: 'Poppins', sans-serif;
 }
 
+.crea-bouton{
+    text-align: center;
+    padding-bottom: 25px;
+}
+
+.listeParticipants{
+    display: flex;
+    justify-content: left;
+}
 body {
     font-family: 'Poppins', sans-serif;
     display: grid;
@@ -318,7 +327,6 @@ a {
     display: flex;
     justify-content: center;
     padding: 1rem 1% 5rem;
-
 }
 
 .filtre {
@@ -332,13 +340,6 @@ a {
 .infos_user {
     padding: 1rem;
 }
-
-/** {*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*    box-sizing: border-box;*/
-/*    font-family: 'Poppins', sans-serif;*/
-/*}*/
 
 .container {
     width: 100%;
@@ -483,8 +484,6 @@ a {
     padding: 8px;
 
 }
-
-
 
 @media screen and (max-width: 900px) {
     .footer {
