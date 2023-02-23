@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\ModifProfilType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,7 +16,6 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/profil', name: 'profil')]
 class ProfilController extends AbstractController
 {
-
     /**
      * @param int $id
      * @param UserRepository $userRepository
@@ -25,10 +25,10 @@ class ProfilController extends AbstractController
     #[Route('/details/{id}', name: '_details', requirements: ['id' => '\d+'])]
     public function details(
         int            $id,
+        User $user,
         UserRepository $userRepository
     ): Response
     {
-        $user = $this->getUser();
         $profil = $userRepository->findOneBy(["id" => $id]);
 
         if ($user->getUserIdentifier() === $profil->getUserIdentifier()) {
