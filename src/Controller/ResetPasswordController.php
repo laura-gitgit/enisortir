@@ -19,7 +19,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
-#[IsGranted('ROLE_USER_ACTIF')]
+#[IsGranted('ROLE_USER')]
 #[Route('/reset-password')]
 class ResetPasswordController extends AbstractController
 {
@@ -34,7 +34,7 @@ class ResetPasswordController extends AbstractController
     /**
      * Display & process form to request a password reset.
      */
-    #[IsGranted('ROLE_USERACTIF')]
+    #[IsGranted('ROLE_USER')]
     #[Route('', name: 'app_forgot_password_request')]
     public function request(Request $request, MailerInterface $mailer): Response
     {
@@ -56,7 +56,7 @@ class ResetPasswordController extends AbstractController
     /**
      * Confirmation page after a user has requested a password reset.
      */
-    #[IsGranted('ROLE_USERACTIF')]
+    #[IsGranted('ROLE_USER')]
     #[Route('/check-email', name: 'app_check_email')]
     public function checkEmail(): Response
     {
@@ -74,7 +74,7 @@ class ResetPasswordController extends AbstractController
     /**
      * Validates and process the reset URL that the user clicked in their email.
      */
-    #[IsGranted('ROLE_USER_ACTIF')]
+    #[IsGranted('ROLE_USER')]
     #[Route('/reset/{token}', name: 'app_reset_password')]
     public function reset(Request $request, UserPasswordHasherInterface $passwordHasher, string $token = null): Response
     {

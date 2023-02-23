@@ -20,7 +20,7 @@ class LieuController extends AbstractController
      * @param EntityManagerInterface $em
      * @return Response
      **/
-    #[IsGranted('ROLE_USERACTIF')]
+    #[IsGranted('ROLE_USER')]
     #[Route('/lieu/ajout', name: 'lieu_ajoutLieu')]
     public function ajoutLieu(Request $request, EntityManagerInterface $em, VilleRepository $villeRepository): Response
     {

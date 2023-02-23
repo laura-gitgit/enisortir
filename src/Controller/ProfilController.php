@@ -15,7 +15,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/profil', name: 'profil')]
 class ProfilController extends AbstractController
 {
-    #[IsGranted('ROLE_USERACTIF')]
+  #[IsGranted('ROLE_USER')]
     #[Route('/details/{id}', name: '_details', requirements: ['id' => '\d+'])]
     public function details(
         int $id,
@@ -33,7 +33,7 @@ class ProfilController extends AbstractController
         );
         }
     }
-    #[IsGranted('ROLE_USERACTIF')]
+    #[IsGranted('ROLE_USER')]
     #[Route('/modif', name: '_modif')]
     public function modif(
         UserRepository $userRepository,

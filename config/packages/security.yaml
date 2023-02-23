@@ -35,12 +35,33 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/admin, roles: ROLE_ADMIN }
-         - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/creation, roles: ROLE_USER }
+         - { path: ^/detail, roles: ROLE_USER }
+         - { path: ^/modification, roles: ROLE_USER }
+         - { path: ^/annulation, roles: ROLE_USER }
+         - { path: ^/tri, roles: ROLE_USER }
+         - { path: ^/profil/modif, roles: ROLE_USER }
+         - { path: ^/register, roles: ROLE_ADMIN }
+         - { path: ^/lieu/ajout, roles: ROLE_USER }
+#         - { path: ^/, roles: }
+         - { path: ^/reset-password, roles: ROLE_USER }
+         - { path: ^/profil/details, roles: ROLE_USER }
+         - { path: ^/sorties, roles: ROLE_USER }
+         - { path: ^/reset-password/check-email, roles: ROLE_USER }
+         - { path: ^/reset-password/reset/, roles: ROLE_USER }
+         - { path: ^/sorties, roles: ROLE_USER }
+         - { path: ^/logout, roles: ROLE_USER }
+         - { path: ^/inscription/, roles: ROLE_USER }
+         - { path: ^/desinscription/, roles: ROLE_USER }
+         - { path: ^/user, roles: ROLE_ADMIN }
+         - { path: ^/ville/ajout, roles: ROLE_ADMIN }
+
+
 
     role_hierarchy:
 
-        ROLE_USER_ACITF: ROLE_USER
-        ROLE_ADMIN: ROLE_USERACTIF
+        ROLE_USER: ROLE_USER
+        ROLE_ADMIN: ROLE_USER
 
 when@test:
     security:
