@@ -16,7 +16,6 @@ class SortieController extends AbstractController
      * @param $id
      * @param SortieRepository $sortieRepository
      * @param EntityManagerInterface $em
-     * @param User $user
      * @return Response
      */
     #[IsGranted('ROLE_USER')]
@@ -45,7 +44,6 @@ class SortieController extends AbstractController
      * @param $id
      * @param SortieRepository $sortieRepository
      * @param EntityManagerInterface $em
-     * @param User $user
      * @return Response
      */
     #[IsGranted('ROLE_USER')]
