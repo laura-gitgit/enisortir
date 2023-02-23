@@ -43,7 +43,6 @@ security:
          - { path: ^/profil/modif, roles: ROLE_USER }
          - { path: ^/register, roles: ROLE_ADMIN }
          - { path: ^/lieu/ajout, roles: ROLE_USER }
-#         - { path: ^/, roles: }
          - { path: ^/reset-password, roles: ROLE_USER }
          - { path: ^/profil/details, roles: ROLE_USER }
          - { path: ^/sorties, roles: ROLE_USER }

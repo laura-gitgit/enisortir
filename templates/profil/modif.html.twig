@@ -13,6 +13,7 @@
     </div>
 
     <div class="crea">
+
         {{ form_start(profilForm) }}
         <div class="crea">{{ form_row(profilForm.pseudo) }}</div>
         <div class="crea">{{ form_row(profilForm.prenom) }}</div>
@@ -20,7 +21,7 @@
         <div class="crea">{{ form_row(profilForm.telephone) }}</div>
         <div class="crea">{{ form_row(profilForm.email) }}</div>
         <div class="crea">{{ form_row(profilForm.password) }}</div>
-        <div class="crea"> {{ form_row(profilForm.imageFile) }}</div>
+        <div class="crea">{{ form_row(profilForm.imageFile) }}</div>
         <div class="crea">{{ form_row(profilForm.site) }}</div>
         <button class="bouton-crea">Enregistrer</button>
         {{ form_end(profilForm) }}

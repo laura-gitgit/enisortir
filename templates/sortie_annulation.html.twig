@@ -12,13 +12,13 @@
 
         {{ form_start(annulationSortie) }}
 
-        <div class="crea">{{ form_row(annulationSortie.nom) }}</div>
-        <div class="crea">{{ form_row(annulationSortie.dateHeureDebut) }}</div>
-        <div class="crea">{{ form_row(annulationSortie.duree) }}</div>
-        <div class="crea">{{ form_row(annulationSortie.dateLimiteInscription) }}</div>
-        <div class="crea">{{ form_row(annulationSortie.nbInscriptionsMax) }}</div>
-        <div class="crea">{{ form_row(annulationSortie.lieu) }}</div>
-        <div class="crea">{{ form_row(annulationSortie.infosSortie) }}</div>
+        <div class="crea">Nom de la sortie : <br>{{ form_widget(annulationSortie.nom) }}</div>
+        <div class="crea">Date et heure de la sortie : <br>{{ form_widget(annulationSortie.dateHeureDebut) }}</div>
+        <div class="crea">Durée : <br>{{ form_widget(annulationSortie.duree) }}</div>
+        <div class="crea">Date limite d'inscription : <br>{{ form_widget(annulationSortie.dateLimiteInscription) }}</div>
+        <div class="crea">Nombre de places : <br>{{ form_widget(annulationSortie.nbInscriptionsMax) }}</div>
+        <div class="crea">Ville organisatrice : <br>{{ form_widget(annulationSortie.lieu) }}</div>
+        <div class="crea">Motif d'annulation<br>{{ form_widget(annulationSortie.infosSortie) }}</div>
 
         <div class="crea">{{ form_row(annulationSortie.Enregistrer) }}</div>
 
