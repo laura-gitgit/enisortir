@@ -20,10 +20,13 @@ use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 
 class UserCrudController extends AbstractCrudController
 {
-    private $entityManager;
+
+
+    private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager, public UserPasswordHasherInterface $userPasswordHasher)
     {
+        
         $this->entityManager = $entityManager;
     }
 
