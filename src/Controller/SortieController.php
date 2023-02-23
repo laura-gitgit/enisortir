@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\SortieRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,6 +25,7 @@ class SortieController extends AbstractController
     #[Route('/inscription/{id}', name: '_inscriptionSortie')]
     public function inscriptionSortie($id, SortieRepository $sortieRepository, EntityManagerInterface $em, User $user): Response
     {
+        $user = $this->getUser();
         $sortie = $sortieRepository->findOneBy(['id' => $id]);
         $date = new \DateTime('now');
 
@@ -52,6 +54,7 @@ class SortieController extends AbstractController
     #[Route('/desinscription/{id}', name: '_desinscriptionSortie')]
     public function desinscriptionSortie($id, SortieRepository $sortieRepository, EntityManagerInterface $em, User $user): Response
     {
+        $user = $this->getUser();
         $sortie = $sortieRepository->findOneBy(['id' => $id]);
         $sortie->removeParticipant($user);
 
