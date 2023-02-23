@@ -7,26 +7,26 @@
     {% block body %}
 
 
-<div class="crea">
-    <h2>Modifier une sortie</h2>
+        <div class="crea">
+            <h2>Modifier une sortie</h2>
 
-    {{ form_start(modifierSortie) }}
-    <div class="crea">{{ form_row(modifierSortie.nom) }}</div>
-    <div class="crea">{{ form_row(modifierSortie.dateHeureDebut) }}</div>
-    <div class="crea">{{ form_row(modifierSortie.duree) }}</div>
-    <div class="crea">{{ form_row(modifierSortie.dateLimiteInscription) }}</div>
-    <div class="crea">{{ form_row(modifierSortie.nbInscriptionsMax) }}</div>
-    <div class="crea">{{ form_row(modifierSortie.infosSortie) }}</div>
-    <div class="crea">{{ form_row(modifierSortie.lieu) }}</div>
+            {{ form_start(modifierSortie) }}
+            <div class="crea">{{ form_row(modifierSortie.nom) }}</div>
+            <div class="crea">{{ form_row(modifierSortie.dateHeureDebut) }}</div>
+            <div class="crea">{{ form_row(modifierSortie.duree) }}</div>
+            <div class="crea">{{ form_row(modifierSortie.dateLimiteInscription) }}</div>
+            <div class="crea">{{ form_row(modifierSortie.nbInscriptionsMax) }}</div>
+            <div class="crea">{{ form_row(modifierSortie.infosSortie) }}</div>
+            <div class="crea">{{ form_row(modifierSortie.lieu) }}</div>
 
-    <div class="crea">{{ form_row(modifierSortie.Enregistrer) }}</div>
-    <div class="crea">{{ form_row(modifierSortie.Publier) }}</div>
-    <div class="crea">{{ form_row(modifierSortie.Supprimer) }}</div>
+            <div class="crea">{{ form_row(modifierSortie.Enregistrer) }}</div>
+            <div class="crea">{{ form_row(modifierSortie.Publier) }}</div>
+            <div class="crea">{{ form_row(modifierSortie.Supprimer) }}</div>
 
-    {{ form_end(modifierSortie) }}
+            {{ form_end(modifierSortie) }}
 
-</div>
+        </div>
 
 
-{% endblock %}
+    {% endblock %}
 

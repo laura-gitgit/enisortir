@@ -1,63 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Eni sortir {% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Eni sortir {% endblock %}</title>
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
 
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        <link rel="stylesheet" type="text/css"  href="{{ asset('css/cssLaura.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/cssLaura.css') }}">
 
-
-{#        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" data-deferred="1"></script>#}
-{#        <script src="{{ asset('scripts/scriptHeader.js') }}"></script>#}
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-    </head>
-    <body>
-    <header>
-        <section class="nav">
-            <div class="container_logo">
-                <img src="{{ asset('images/logodurex.png') }}" alt="">
-                <h1>ENI SORTIR</h1>
-            </div>
-            <h3 class="span loader">
-                <span class="m">E</span>
-                <span class="m">N</span>
-                <span class="m">V</span>
-                <span class="m">I</span>
-                <span class="m">E</span>
-                <span class="m">&nbsp;</span>
-                <span class="m">D</span>
-                <span class="m">'</span>
-                <span class="m">U</span>
-                <span class="m">N</span>
-                <span class="m">E</span>
-                <span class="m">&nbsp;</span>
-                <span class="m">S</span>
-                <span class="m">O</span>
-                <span class="m">R</span>
-                <span class="m">T</span>
-                <span class="m">I</span>
-                <span class="m">E</span>
-            </h3>
-            <div class="nav-container">
-                {% if app.user %}
-                     <a class="nav-tab" href="{{ path('_sorties') }}">Accueil</a>
-                     <a class="nav-tab" href="{{ path('profil_modif') }}">Mon profil</a>
-                     <a class="nav-tab" href="{{ path('sortie_creation') }}">Créer une sortie</a>
-                    {% if app.user.administrateur %}
-                        <a class="nav-tab" href="{{ path('admin') }}">Administration</a>
-                    {% endif %}
-                     <a class="nav-tab" href="{{ path('app_logout') }}" title="logout" >Se déconnecter</a>
-                     <span class="nav-tab-slider"></span>
-                {% else %}
-
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+</head>
+<body>
+<header>
+    <section class="nav">
+        <div class="container_logo">
+            <img src="{{ asset('images/logodurex.png') }}" alt="">
+            <h1>ENI SORTIR</h1>
+        </div>
+        <h3 class="span loader">
+            <span class="m">E</span>
+            <span class="m">N</span>
+            <span class="m">V</span>
+            <span class="m">I</span>
+            <span class="m">E</span>
+            <span class="m">&nbsp;</span>
+            <span class="m">D</span>
+            <span class="m">'</span>
+            <span class="m">U</span>
+            <span class="m">N</span>
+            <span class="m">E</span>
+            <span class="m">&nbsp;</span>
+            <span class="m">S</span>
+            <span class="m">O</span>
+            <span class="m">R</span>
+            <span class="m">T</span>
+            <span class="m">I</span>
+            <span class="m">E</span>
+        </h3>
+        <div class="nav-container">
+            {% if app.user %}
+                <a class="nav-tab" href="{{ path('_sorties') }}">Accueil</a>
+                <a class="nav-tab" href="{{ path('profil_modif') }}">Mon profil</a>
+                <a class="nav-tab" href="{{ path('sortie_creation') }}">Créer une sortie</a>
+                {% if app.user.administrateur %}
+                    <a class="nav-tab" href="{{ path('admin') }}">Administration</a>
                 {% endif %}
-            </div>
-        </section>
+                <a class="nav-tab" href="{{ path('app_logout') }}" title="logout">Se déconnecter</a>
+                <span class="nav-tab-slider"></span>
+            {% else %}
 
-    </header>
-    <main>
+            {% endif %}
+        </div>
+    </section>
+
+</header>
+<main>
     <div class="header_home">
         {% for label, messages in app.flashes %}
             {% for message in messages %}
@@ -68,14 +65,14 @@
         {% endfor %}
     </div>
 
-        {% block body %}{% endblock %}
-    </main>
-    <footer class="footer">
-        <div class="container-footer">
-            <p>&copy; Eni Sortie {{ "now" | date('Y') }} Laura, John et Xavier</p>
-        </div>
-    </footer>
-    </body>
+    {% block body %}{% endblock %}
+</main>
+<footer class="footer">
+    <div class="container-footer">
+        <p>&copy; Eni Sortie {{ "now" | date('Y') }} Laura, John et Xavier</p>
+    </div>
+</footer>
+</body>
 </html>
 
 

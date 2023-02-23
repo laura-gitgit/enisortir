@@ -17,26 +17,21 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class ProfilController extends AbstractController
 {
     /**
-     * @param int $id
-     * @param UserRepository $userRepository
+     * @param User $user
      * @return Response
      */
   #[IsGranted('ROLE_USER')]
     #[Route('/details/{id}', name: '_details', requirements: ['id' => '\d+'])]
     public function details(
-        int            $id,
         User $user,
-        UserRepository $userRepository
     ): Response
     {
-        $profil = $userRepository->findOneBy(["id" => $id]);
-
-        if ($user->getUserIdentifier() === $profil->getUserIdentifier()) {
+        if ($user) {
             return $this->redirectToRoute('profil_modif');
         } else {
             return $this->render(
                 'profil/details.html.twig',
-                compact('profil')
+                compact('user')
             );
         }
     }

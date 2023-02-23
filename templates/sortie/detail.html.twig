@@ -36,16 +36,16 @@
             </a>
         {% endif %}
     </div>
-        <div class="boxer">
-            <div class="box-row-titre">
-                <p class="box">Pseudo</p>
-                <p class="box">Nom</p>
-            </div>
-            {% for user in sortie.participants %}
-                <div class="box-row">
-                    <div class="box">{{ user.pseudo }} </div>
-                    <div class="box">{{ user.prenom }} {{ user.nom }}</div>
-                </div>
-            {% endfor %}
+    <div class="boxer">
+        <div class="box-row-titre">
+            <p class="box">Pseudo</p>
+            <p class="box">Nom</p>
         </div>
+        {% for user in sortie.participants %}
+            <div class="box-row">
+                <div class="box">{{ user.pseudo }} </div>
+                <div class="box">{{ user.prenom }} {{ user.nom }}</div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

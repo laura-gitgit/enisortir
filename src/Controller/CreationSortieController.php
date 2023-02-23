@@ -49,7 +49,7 @@ class CreationSortieController extends AbstractController
             if (isset($request->get('sortie_form')['Enregistrer']))
             {
                 try{
-                $sortie->setEtat($etatRepository->find(1));
+                $sortie->setEtat($etatRepository->find( 1));
                 $em->persist($sortie);
                 $em->flush();
 

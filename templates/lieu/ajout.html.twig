@@ -1,18 +1,18 @@
-{%  extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="crea">
-    <h2>Ajouter un lieu</h2>
-    {{ form_start(lieuForm) }}
+    <div class="crea">
+        <h2>Ajouter un lieu</h2>
+        {{ form_start(lieuForm) }}
 
-    <div class="crea">{{ form_row(lieuForm.nom) }}</div>
-    <div class="crea">{{ form_row(lieuForm.rue) }}</div>
-    <div class="crea">{{ form_row(lieuForm.latitude) }}</div>
-    <div class="crea">{{ form_row(lieuForm.longitude) }}</div>
-    <div class="crea">{{ form_row(lieuForm.ville) }}</div>
-    <div class="crea">{{ form_row(lieuForm.Enregistrer) }}</div>
+        <div class="crea">{{ form_row(lieuForm.nom) }}</div>
+        <div class="crea">{{ form_row(lieuForm.rue) }}</div>
+        <div class="crea">{{ form_row(lieuForm.latitude) }}</div>
+        <div class="crea">{{ form_row(lieuForm.longitude) }}</div>
+        <div class="crea">{{ form_row(lieuForm.ville) }}</div>
+        <div class="crea">{{ form_row(lieuForm.Enregistrer) }}</div>
 
-    {{ form_end(lieuForm) }}
-</div>
+        {{ form_end(lieuForm) }}
+    </div>
 
 {% endblock %}
