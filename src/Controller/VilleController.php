@@ -18,7 +18,7 @@ class VilleController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    #[IsGranted('ROLE_USERACTIF')]
+    #[IsGranted('ROLE_USER')]
     #[Route('/ville/ajout', name: '_ajoutVille')]
     public function ajoutVille(EntityManagerInterface $em, Request $request): Response
     {

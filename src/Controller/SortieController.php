@@ -19,7 +19,7 @@ class SortieController extends AbstractController
      * @param EntityManagerInterface $em
      * @return Response
      */
-    #[IsGranted('ROLE_USERACTIF')]
+    #[IsGranted('ROLE_USER')]
     #[Route('/inscription/{id}', name: '_inscriptionSortie')]
     public function inscriptionSortie($id, SiteRepository $siteRepository, SortieRepository $sortieRepository, EntityManagerInterface $em): Response
     {
@@ -48,7 +48,7 @@ class SortieController extends AbstractController
      * @param EntityManagerInterface $em
      * @return Response
      */
-    #[IsGranted('ROLE_USERACTIF')]
+    #[IsGranted('ROLE_USER')]
     #[Route('/desinscription/{id}', name: '_desinscriptionSortie')]
     public function desinscriptionSortie($id, SiteRepository $siteRepository, SortieRepository $sortieRepository, EntityManagerInterface $em): Response
     {
