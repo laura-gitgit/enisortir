@@ -84,6 +84,7 @@ class CreationSortieController extends AbstractController
      * @param SortieRepository $sortieRepository
      * @return Response
      */
+
     #[IsGranted('ROLE_USER')]
     #[Route('/detail/{id}', name: 'sortie_detail')]
         public function afficherSortie(
