@@ -10,15 +10,16 @@
     <div class="crea">Date et heure de la sortie : <br>{{ form_widget(sortieForm.dateHeureDebut) }}</div>
     <div class="crea">Date limite d'inscription : <br>{{ form_widget(sortieForm.dateLimiteInscription) }}</div>
     <div class="crea">Nombre de places : <br>{{ form_widget(sortieForm.nbInscriptionsMax) }}</div>
-    <div class="crea">Durée : <br>{{ form_widget(sortieForm.duree) }}</div>
+    <div class="crea">Durée (heure) : <br>{{ form_widget(sortieForm.duree) }}</div>
 
     <div class="crea">Description et infos : <br>{{ form_widget(sortieForm.infosSortie) }}</div>
 
     <div class="crea">Ville organisatrice : <br>{{ form_widget(sortieForm.lieu) }}
-        <a href="{{ path('lieu_ajoutLieu') }}"> Ajouter
-            <div class="crea">{{ form_widget(sortieForm.Enregistrer) }}</div>
-            <div class="crea">{{ form_widget(sortieForm.Publier) }}</div>
-
-            {{ form_end(sortieForm) }}
+        <a href="{{ path('lieu_ajoutLieu') }}">Ajouter lieu</a>
     </div>
+    <div class="crea">{{ form_widget(sortieForm.Enregistrer) }}</div>
+    <div class="crea">{{ form_widget(sortieForm.Publier) }}</div>
+
+    {{ form_end(sortieForm) }}
+
 {% endblock %}
