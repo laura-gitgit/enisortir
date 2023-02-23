@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Site;
 use App\Entity\User;
 use App\Form\UserCSVType;
 use App\Repository\SiteRepository;
@@ -23,7 +24,6 @@ class UserCSVController extends AbstractController
     public function fichierCSV(
         Request                     $request,
         EntityManagerInterface      $em,
-        SiteRepository              $siteRepository,
         UserPasswordHasherInterface $passwordHasher): Response
     {
         $userCSVForm = $this->createForm(UserCSVType::class);
@@ -41,6 +41,7 @@ class UserCSVController extends AbstractController
                 if ($cle == 1) {
                     continue;
                 }
+                $siteRepository = $em->getRepository(Site::class);
                 $site = $siteRepository->find($utilisateur['F']);
 
                 $newUser = new User();
@@ -73,7 +74,6 @@ class UserCSVController extends AbstractController
                     dd($exception->getMessage());
                 }
             }
-
         }
 
         return $this->render('user/import.html.twig',

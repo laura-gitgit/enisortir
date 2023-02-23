@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Repository\SiteRepository;
+use App\Entity\User;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,23 +12,23 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class SortieController extends AbstractController
 {
+
     /**
      * @param $id
-     * @param SiteRepository $siteRepository
      * @param SortieRepository $sortieRepository
      * @param EntityManagerInterface $em
+     * @param User $user
      * @return Response
      */
     #[IsGranted('ROLE_USER')]
     #[Route('/inscription/{id}', name: '_inscriptionSortie')]
-    public function inscriptionSortie($id, SortieRepository $sortieRepository, EntityManagerInterface $em): Response
+    public function inscriptionSortie($id, SortieRepository $sortieRepository, EntityManagerInterface $em, User $user): Response
     {
-        $userConnecte = $this->getUser();
         $sortie = $sortieRepository->findOneBy(['id' => $id]);
         $date = new \DateTime('now');
 
         if (count($sortie->getParticipants()) < $sortie->getNbInscriptionsMax() && $sortie->getDateLimiteInscription() >= $date) {
-            $sortie->addParticipant($userConnecte);
+            $sortie->addParticipant($user);
         }
         try {
             $em->persist($sortie);
@@ -43,18 +43,17 @@ class SortieController extends AbstractController
 
     /**
      * @param $id
-     * @param SiteRepository $siteRepository
      * @param SortieRepository $sortieRepository
      * @param EntityManagerInterface $em
+     * @param User $user
      * @return Response
      */
     #[IsGranted('ROLE_USER')]
     #[Route('/desinscription/{id}', name: '_desinscriptionSortie')]
-    public function desinscriptionSortie($id, SortieRepository $sortieRepository, EntityManagerInterface $em): Response
+    public function desinscriptionSortie($id, SortieRepository $sortieRepository, EntityManagerInterface $em, User $user): Response
     {
-        $userConnecte = $this->getUser();
         $sortie = $sortieRepository->findOneBy(['id' => $id]);
-        $sortie->removeParticipant($userConnecte);
+        $sortie->removeParticipant($user);
 
         try {
             $em->persist($sortie);
