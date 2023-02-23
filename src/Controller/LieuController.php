@@ -37,7 +37,7 @@ class LieuController extends AbstractController
             }
             $em->flush();
             $this->addFlash('success', 'Lieu ajouté avec succès');
-            $this->redirectToRoute('sortie_creation');
+            return $this->redirectToRoute('sortie_creation');
         }
 
         return $this->render('lieu/ajout.html.twig', compact('lieuForm', 'villes'));
