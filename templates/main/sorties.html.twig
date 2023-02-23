@@ -13,6 +13,7 @@
                 <p>Filter les sorties</p>
                 <p>Site :
                     <select name="site" id="site">
+                        <option value="" disabled selected>Sélectionner un site</option>
                         {% for site in sites %}
                             <option value="{{ site.nom }}">{{ site.nom }}</option>
                         {% endfor %}
@@ -52,7 +53,7 @@
     </div>
 
     <div class="boxer">
-        <div class="box-row-titre"><!--Headings-->
+        <div class="box-row-titre">
             <div class="box">Nom de la sortie</div>
             <div class="box">Date de la sortie</div>
             <div class="box">Clôture</div>
