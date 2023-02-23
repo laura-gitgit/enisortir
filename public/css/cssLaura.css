@@ -601,3 +601,8 @@ a {
 .alert-success{
     text-align: center;
 }
+.erreur{
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
