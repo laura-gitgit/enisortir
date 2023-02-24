@@ -38,6 +38,7 @@ class Sortie
 
     #[Assert\NotNull]
     #[Assert\NotBlank]
+    #[Assert\GreaterThanOrEqual(propertyPath: "dateHeureDebut", message: "La date de clôture ne peut être inférieure à la date de la sortie")]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateLimiteInscription = null;
 
